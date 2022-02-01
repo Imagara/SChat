@@ -27,19 +27,24 @@ namespace SChat
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Grid adf = new Grid();
-            adf.Margin = new Thickness(10);
-            adf.Width = 130;
-            adf.Height = 40;
-            Image afsd = new Image();
-            afsd.Margin = image.Margin;
-            afsd.HorizontalAlignment = image.HorizontalAlignment;
-            afsd.Width = image.Width;
-            afsd.Height = image.Height;
-            afsd.Source = image.Source;
-            adf.Children.Add(afsd);
+            //Grid adf = new Grid();
+            //adf.Margin = new Thickness(10);
+            //adf.Width = 130;
+            //adf.Height = 40;
+            //Image afsd = new Image();
+            //afsd.Margin = image.Margin;
+            //afsd.HorizontalAlignment = image.HorizontalAlignment;
+            //afsd.Width = image.Width;
+            //afsd.Height = image.Height;
+            //afsd.Source = image.Source;
+            //adf.Children.Add(afsd);
 
-            dsg.Children.Add(adf);
+            //dsg.Children.Add(adf);
+        }
+
+        private void AddNewChat(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

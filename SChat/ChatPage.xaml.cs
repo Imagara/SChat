@@ -24,5 +24,10 @@ namespace SChat
         {
             InitializeComponent();
         }
+
+        private void SendMessage(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

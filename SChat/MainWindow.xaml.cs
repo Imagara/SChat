@@ -46,5 +46,9 @@ namespace SChat
         {
 
         }
+        private void OnLoad(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new ChatPage();
+        }
     }
 }

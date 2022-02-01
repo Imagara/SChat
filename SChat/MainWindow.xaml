@@ -9,6 +9,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
+        Loaded="OnLoad"
         Height="450" 
         Width="800">
     <Grid Background="DarkGray">
@@ -24,7 +25,8 @@
                 <RowDefinition Height="50*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <StackPanel 
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <StackPanel 
                     Name="ChatStackPanel"
                     Margin="0,0,0,30">
                     <Grid Name="ChatGridMain"
@@ -62,10 +64,12 @@
                             BorderBrush="Black"
                             BorderThickness="1.3"/>
                     </Grid>
+                    
                     <Grid Background="White"
                         Width="140"
                           Height="30"
                           Margin="10"></Grid>
+                    
                     <Grid Background="White"
                         Width="140"
                           Height="30"
@@ -98,6 +102,7 @@
                           Height="30"
                           Margin="10"></Grid>
                 </StackPanel>
+                </ScrollViewer>
                 <Button 
                     Content="Добавить новый чат"
                     VerticalAlignment="Bottom" 
@@ -120,14 +125,20 @@
                         FontWeight="Bold"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        FontSize="10"/>
+                        FontSize="10" 
+                        Width="110" Height="25"/>
                     <Label 
                         Name="Status"
                         Content="Status"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         FontSize="10" 
-                        Width="95"/>
+                        Width="85" Height="25"/>
+                    <Image 
+                        Width="25" 
+                        Height="25" 
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"/>
                 </Grid>
                 <Border
                     BorderBrush="Black"

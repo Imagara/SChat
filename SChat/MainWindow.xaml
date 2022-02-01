@@ -30,16 +30,18 @@
                     Name="ChatStackPanel"
                     Margin="0,0,0,30">
                     <Grid Name="ChatGridMain"
-                        Margin="10" 
-                        Width="130" 
-                        Height="40">
-                        <Image Name="ChatImage"
-                            Margin="5,0,0,0"
-                            HorizontalAlignment="Left"
-                            Width="30"
-                            Height="30"
-                            Source="Resources/av.jpg">
-                        </Image>
+                          MouseDown="NewChatSelected"
+                          Visibility="Visible"
+                          Margin="10" 
+                          Width="130" 
+                          Height="40">
+                          <Image Name="ChatImage"
+                              Margin="5,0,0,0"
+                              HorizontalAlignment="Left"
+                              Width="30"
+                              Height="30"
+                              Source="Resources/av.jpg">
+                          </Image>
                         <Grid 
                             Name="ChatGridText"
                             Margin="40,0,0,0">
@@ -64,43 +66,7 @@
                             BorderBrush="Black"
                             BorderThickness="1.3"/>
                     </Grid>
-                    
-                    <Grid Background="White"
-                        Width="140"
-                          Height="30"
-                          Margin="10"></Grid>
-                    
-                    <Grid Background="White"
-                        Width="140"
-                          Height="30"
-                          Margin="10"></Grid>
-
-
-                    <Grid Background="White"
-                        Width="140"
-                          Height="30"
-                          Margin="10"></Grid>
-
-                    <Grid Background="White"
-                        Width="140"
-                          Height="30"
-                          Margin="10"></Grid>
-                    <Grid Background="White"
-                        Width="140"
-                          Height="30"
-                          Margin="10"></Grid>
-                    <Grid Background="White"
-                        Width="140"
-                          Height="30"
-                          Margin="10"></Grid>
-                    <Grid Background="White"
-                        Width="140"
-                          Height="30"
-                          Margin="10"></Grid>
-                    <Grid Background="White"
-                        Width="140"
-                          Height="30"
-                          Margin="10"></Grid>
+                   
                 </StackPanel>
                 </ScrollViewer>
                 <Button 

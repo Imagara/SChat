@@ -50,5 +50,9 @@ namespace SChat
         {
             MainFrame.Content = new ChatPage();
         }
+        private void NewChatSelected(object sender, RoutedEventArgs e)
+        {
+            //MainFrame.Content = new ChatPage();
+        }
     }
 }

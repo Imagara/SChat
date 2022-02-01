@@ -11,14 +11,44 @@
 
     <Grid Background="Gray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="8*"/>
-            <RowDefinition/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="342*"/>
+            <RowDefinition Height="47*"/>
         </Grid.RowDefinitions>
+
         <Grid Grid.Row="0">
-            
+
         </Grid>
-        <Grid 
-            Grid.Row="1" 
+
+        <Grid Grid.Row="1">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                <StackPanel Name="MessageStackPanel">
+                    <Grid Background="White"
+                          Margin="10,0,10,10"
+                          Width="624"
+                          Visibility="Visible"
+                          Height="40">
+                        <Image/>
+
+
+                        <Label 
+                            Content="Author" 
+                            Margin="40,0,0,0"
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Top"
+                            Width="100"/>
+                        <Label 
+                            Content="Message"
+                            Margin="40,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom" 
+                            Width="574"/> 
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Row="2" 
             Background="White">
             <TextBox
                 Name="MessageBox"
@@ -32,6 +62,6 @@
                 MouseDown="SendMessage">
             </Image>
         </Grid>
-        
+
     </Grid>
 </Page>

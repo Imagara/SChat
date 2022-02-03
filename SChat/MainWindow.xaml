@@ -78,6 +78,7 @@
             </Grid>
             <Grid Grid.Row="1">
                 <Image 
+                    Name="ProfileImage"
                     Margin="5,0,0,0"
                     HorizontalAlignment="Left"
                     Width="30"

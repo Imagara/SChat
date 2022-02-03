@@ -23,52 +23,62 @@ namespace SChat
         public ChatPage()
         {
             InitializeComponent();
+            LoadingMessages();
         }
-        int mess = 0;
-        private void SendMessage(object sender, MouseButtonEventArgs e)
+        private void SendMessageButton(object sender, MouseButtonEventArgs e)
         {
             if(MessageBox.Text != "")
             {
-                Grid message = new Grid();
-                message.Background = Brushes.White;
-                message.HorizontalAlignment = HorizontalAlignment.Left;
-                message.Width = 624;
-                message.Height = 40;
-                message.Margin = new Thickness(10, 0, 10, 10);
-                Label authorLabel = new Label();
-                authorLabel.Content = Profile.NickName;
-                authorLabel.HorizontalAlignment = HorizontalAlignment.Left;
-                authorLabel.VerticalAlignment = VerticalAlignment.Top;
-                message.Children.Add(authorLabel);
-                Label messageLabel = new Label();
-                messageLabel.Content = MessageBox.Text;
-                messageLabel.HorizontalAlignment = HorizontalAlignment.Left;
-                messageLabel.VerticalAlignment = VerticalAlignment.Bottom;
-                message.Children.Add(messageLabel);
-                MessageStackPanel.Children.Add(message);
+                SendMessage(Profile.NickName, MessageBox.Text, DateTime.Now.ToString("MM.dd.yyyy HH:mm"), Profile.ImgSource);
                 MessageBox.Text = "";
             }
         }
-        private void SendMessageTest(object sender, MouseButtonEventArgs e)
+        private void SendMessage(string nickName, string message, string date, string imageSource)
         {
-            mess++;
-            Grid message = new Grid();
-            message.Background = Brushes.White;
-            message.Width = 200;
-            message.Height = 40;
-            message.Margin = new Thickness(0, 0, 0, 10);
+            Grid messageGrid = new Grid();
+            messageGrid.Background = Brushes.White;
+            messageGrid.HorizontalAlignment = HorizontalAlignment.Left;
+            messageGrid.Height = 40;
+            messageGrid.Width = 624;
+            messageGrid.Margin = new Thickness(10, 0, 10, 10);
+
+            Image messageImage = new Image();
+            messageImage.Source = new BitmapImage(new Uri(imageSource));
+            messageImage.Width = 35;
+            messageImage.Height = 35;
+            messageImage.Margin = new Thickness(5);
+            messageImage.HorizontalAlignment = HorizontalAlignment.Left;
+            messageGrid.Children.Add(messageImage);
+
+            StackPanel stackpanel = new StackPanel();
+            stackpanel.Orientation = Orientation.Horizontal;
+
             Label authorLabel = new Label();
-            authorLabel.Content = $"AuthTest {mess}";
+            authorLabel.Content = nickName;
             authorLabel.HorizontalAlignment = HorizontalAlignment.Left;
             authorLabel.VerticalAlignment = VerticalAlignment.Top;
-            message.Children.Add(authorLabel);
+            authorLabel.Margin = new Thickness(40, 0, 0, 0);
+
+            Label dateLabel = new Label();
+            dateLabel.Content = date;
+
+            stackpanel.Children.Add(authorLabel);
+            stackpanel.Children.Add(dateLabel);
+            messageGrid.Children.Add(stackpanel);
+
             Label messageLabel = new Label();
-            messageLabel.Content = $"MessagTest {mess}";
+            messageLabel.Content = message;
             messageLabel.HorizontalAlignment = HorizontalAlignment.Left;
             messageLabel.VerticalAlignment = VerticalAlignment.Bottom;
-            message.Children.Add(messageLabel);
-
-            MessageStackPanel.Children.Add(message);
+            messageLabel.Margin = new Thickness(40, 0, 0, 0);
+            messageGrid.Children.Add(messageLabel);
+            MessageStackPanel.Children.Add(messageGrid);
+        }
+        private void LoadingMessages()
+        {
+            int messagesCount = cnt.db.Message.Count();
+            for (int i = 1; i < messagesCount; i++)
+                SendMessage(Profile.NickName, MessageBox.Text, DateTime.Now.ToString("MM.dd.yyyy HH:mm"), Profile.ImgSource);
         }
     }
 }

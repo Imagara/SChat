@@ -23,6 +23,7 @@ namespace SChat
         public MainWindow()
         {
             InitializeComponent();
+            ProfileImage.Source = new BitmapImage(new Uri(Profile.ImgSource));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

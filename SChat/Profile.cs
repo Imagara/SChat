@@ -11,7 +11,7 @@ namespace SChat
         public int UserId { get; set; }
         //public string NickName = { get; set; }
         public static string NickName = "Imagara";
-        public static string ImgSource = cnt.db.User.First(item => item.UserId == 1).;
+        public static string ImgSource = cnt.db.User.First(item => item.Id == 1).ProfileImgSource;
 
     }
 }

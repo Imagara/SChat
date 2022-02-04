@@ -100,7 +100,7 @@ namespace SChat
         }
         private void LoadingMessages()
         {
-            foreach (ChatMessage chat in cnt.db.ChatMessage.ToList())
+            foreach (ChatMessage chat in cnt.db.ChatMessage.OrderByDescending(cht => cht.Id).Take(25).OrderBy(cht => cht.Id).ToList())
             {
                 string author = "AUTHOR";
                 string content = cnt.db.Message.Where(msg => msg.IdMessage == chat.IdMessage).Select(msg => msg.Content).FirstOrDefault();

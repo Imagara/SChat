@@ -25,7 +25,7 @@
 
         <Grid Grid.Row="1">
             <ScrollViewer Name="scroll"
-                          VerticalScrollBarVisibility="Hidden">
+                          VerticalScrollBarVisibility="Visible">
                 <StackPanel Name="MessageStackPanel">
                     <Grid Background="White"
                           Margin="10,0,10,10"

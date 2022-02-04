@@ -7,7 +7,7 @@
       <Diagram DiagramId="bdd3cc9b9e6b4c86b04b53dd15fb63d4" Name="Diagram1">
         <EntityTypeShape EntityType="SChatDataBaseModel.Chat" Width="1.5" PointX="6.375" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SChatDataBaseModel.ChatMessage" Width="1.5" PointX="6.375" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SChatDataBaseModel.Message" Width="1.5" PointX="3.625" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SChatDataBaseModel.Message" Width="1.5" PointX="3.625" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SChatDataBaseModel.User" Width="1.5" PointX="0.875" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SChatDataBaseModel.UserChat" Width="1.5" PointX="3.625" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="SChatDataBaseModel.FK_ChatMessage_Chat" ManuallyRouted="false" />

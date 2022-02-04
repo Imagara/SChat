@@ -17,9 +17,8 @@
             <ColumnDefinition Width="150*"/>
             <ColumnDefinition Width="643*"/>
         </Grid.ColumnDefinitions>
-        <Grid 
-            Background="Gray"
-            Grid.Column="0">
+        <Grid Background="Gray" 
+              Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="369*"/>
                 <RowDefinition Height="50*"/>
@@ -85,22 +84,26 @@
                     Height="30"
                     Source="Resources/av.jpg">
                 </Image>
-                <Grid Margin="40,0,0,0">
+                <Grid Margin="40,0,0,0" 
+                      MouseDown="Profile_MouseDown">
                     <Label
-                        Name="Name"
+                        Name="ProfileName"
                         Content="Name"
                         FontWeight="Bold"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         FontSize="10" 
-                        Width="110" Height="25"/>
+                        Width="110" 
+                        Height="25"/>
                     <Label 
-                        Name="Status"
+                        Name="ProfileStatus"
                         Content="Status"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         FontSize="10" 
-                        Width="85" Height="25"/>
+                        Width="85" 
+                        Height="25" 
+                        Margin="0,0,0,3"/>
                     <Image 
                         Width="25" 
                         Height="25" 
@@ -114,7 +117,8 @@
             </Grid>
         </Grid>
         <Grid Grid.Column="1">
-            <Frame Name="MainFrame"/>
+            <Frame Name="MainFrame"
+                   NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>
 </Window>

@@ -23,24 +23,8 @@ namespace SChat
         public MainWindow()
         {
             InitializeComponent();
+            ProfileName.Content = Profile.NickName;
             ProfileImage.Source = new BitmapImage(new Uri(Profile.ImgSource));
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //Grid adf = new Grid();
-            //adf.Margin = new Thickness(10);
-            //adf.Width = 130;
-            //adf.Height = 40;
-            //Image afsd = new Image();
-            //afsd.Margin = image.Margin;
-            //afsd.HorizontalAlignment = image.HorizontalAlignment;
-            //afsd.Width = image.Width;
-            //afsd.Height = image.Height;
-            //afsd.Source = image.Source;
-            //adf.Children.Add(afsd);
-
-            //dsg.Children.Add(adf);
         }
 
         private void AddNewChat(object sender, RoutedEventArgs e)
@@ -53,7 +37,11 @@ namespace SChat
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)
         {
-            //MainFrame.Content = new ChatPage();
+            MainFrame.Content = new ChatPage();
+        }
+        private void Profile_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MainFrame.Content = new ProfilePage();
         }
     }
 }

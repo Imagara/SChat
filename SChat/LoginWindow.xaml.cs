@@ -23,6 +23,30 @@ namespace SChat
         {
             InitializeComponent();
         }
+        public void OnLoad(object sender, RoutedEventArgs e)
+        {
+            logbox.Focus();
+        }
+        private void LogButton_Click(object sender, RoutedEventArgs e)
+        {
+            //if (!Functions.IsValidLogAndPass(logbox.Text, passbox.Password))
+            //    MessageBox.Show("Поля не могут быть пустыми");
+            //else if (!Functions.LoginCheck(logbox.Text, passbox.Password))
+            //    MessageBox.Show("Неверный логин или пароль");
+            //else
+            //{
+                Profile.NickName = "Imagara";
+                MainWindow mw = new MainWindow();
+                mw.Show();
+                this.Close();
+            //}
 
+        }
+        private void RegButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterWindow rw = new RegisterWindow();
+            rw.Show();
+            this.Close();
+        }
     }
 }

@@ -30,8 +30,6 @@ namespace SChat
         {
             if(MsgBox.Text != "")
             {
-                SendMessage(Profile.NickName, MsgBox.Text, DateTime.Now.ToString("dd.MM.yyyy HH:mm"), Profile.ImgSource);
-
                 int messageId = cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max() + 1;
 
                 Message newMessage = new Message()
@@ -135,7 +133,6 @@ namespace SChat
                 };
                 cnt.db.ChatMessage.Add(newChatMessage);
                 cnt.db.SaveChanges();
-
             }
             LoadingMessages();
             scroll.ScrollToEnd();

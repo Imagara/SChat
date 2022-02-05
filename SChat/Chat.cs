@@ -17,7 +17,7 @@ namespace SChat
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Chat()
         {
-            this.ChatMessage = new HashSet<ChatMessage>();
+            this.Message = new HashSet<Message>();
             this.UserChat = new HashSet<UserChat>();
         }
     
@@ -25,7 +25,7 @@ namespace SChat
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChatMessage> ChatMessage { get; set; }
+        public virtual ICollection<Message> Message { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserChat> UserChat { get; set; }
     }

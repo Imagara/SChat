@@ -14,17 +14,11 @@ namespace SChat
     
     public partial class Message
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Message()
-        {
-            this.ChatMessage = new HashSet<ChatMessage>();
-        }
-    
         public int IdMessage { get; set; }
+        public int IdChat { get; set; }
         public string Content { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public System.DateTime Date { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChatMessage> ChatMessage { get; set; }
+        public virtual Chat Chat { get; set; }
     }
 }

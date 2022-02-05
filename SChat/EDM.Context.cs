@@ -26,7 +26,6 @@ namespace SChat
         }
     
         public virtual DbSet<Chat> Chat { get; set; }
-        public virtual DbSet<ChatMessage> ChatMessage { get; set; }
         public virtual DbSet<Message> Message { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserChat> UserChat { get; set; }

@@ -11,6 +11,6 @@ namespace SChat
         public int UserId { get; set; }
         public static string NickName { get; set; }
         public static string ImgSource = cnt.db.User.First(item => item.Id == 1).ProfileImgSource;
-
+        public static int openedChat { get; set; }
     }
 }

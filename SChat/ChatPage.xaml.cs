@@ -20,7 +20,6 @@ namespace SChat
     /// </summary>
     public partial class ChatPage : Page
     {
-        public int openChat = 1;
         public ChatPage()
         {
             InitializeComponent();
@@ -39,15 +38,6 @@ namespace SChat
                     Date = DateTime.Now
                 };
                 cnt.db.Message.Add(newMessage);
-                cnt.db.SaveChanges();
-
-                ChatMessage newChatMessage = new ChatMessage()
-                {
-                    Id = cnt.db.ChatMessage.Select(p => p.Id).DefaultIfEmpty(0).Max() + 1,
-                    IdChat = openChat,
-                    IdMessage = messageId
-                };
-                cnt.db.ChatMessage.Add(newChatMessage);
                 cnt.db.SaveChanges();
 
                 MsgBox.Text = "";
@@ -103,7 +93,7 @@ namespace SChat
                 string author = "AUTHOR";
                 string content = cnt.db.Message.Where(msg => msg.IdMessage == chat.IdMessage).Select(msg => msg.Content).FirstOrDefault();
                 DateTime dt = Convert.ToDateTime(cnt.db.Message.Where(msg => msg.IdMessage == chat.IdMessage).Select(msg => msg.Date).FirstOrDefault());
-                if (chat.IdChat == openChat)
+                if (chat.IdChat == Profile.openedChat)
                     SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), Profile.ImgSource);
             }
             scroll.ScrollToEnd();
@@ -119,8 +109,10 @@ namespace SChat
                 Message newMessage = new Message()
                 {
                     IdMessage = messageId,
+                    IdChat = Profile.openedChat,
                     Content = message,
                     Date = DateTime.Now
+
                 };
                 cnt.db.Message.Add(newMessage);
                 cnt.db.SaveChanges();
@@ -128,7 +120,7 @@ namespace SChat
                 ChatMessage newChatMessage = new ChatMessage()
                 {
                     Id = cnt.db.ChatMessage.Select(p => p.Id).DefaultIfEmpty(0).Max() + 1,
-                    IdChat = openChat,
+                    IdChat = Profile.openedChat,
                     IdMessage = messageId
                 };
                 cnt.db.ChatMessage.Add(newChatMessage);

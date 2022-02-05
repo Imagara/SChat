@@ -35,10 +35,11 @@ namespace SChat
             //    MessageBox.Show("Неверный логин или пароль");
             //else
             //{
-                Profile.NickName = "Imagara";
-                MainWindow mw = new MainWindow();
-                mw.Show();
-                this.Close();
+            Profile.NickName = "Imagara";
+            Profile.openedChat = Convert.ToInt32(chatid.Text);
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            this.Close();
             //}
 
         }

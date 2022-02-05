@@ -67,14 +67,21 @@
     <Compile Include="Chat.cs">
       <DependentUpon>EDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="ChatMessage.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
-    </Compile>
     <Compile Include="cnt.cs" />
+    <Compile Include="EDM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EDM.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="EDM.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -113,16 +120,6 @@
     </Compile>
     <Compile Include="ChatPage.xaml.cs">
       <DependentUpon>ChatPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EDM.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EDM.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EDM.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -178,19 +175,19 @@
     <Resource Include="Resources\message.png" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="EDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EDM.Context.cs</LastGenOutput>
       <DependentUpon>EDM.edmx</DependentUpon>
+      <LastGenOutput>EDM.Context.cs</LastGenOutput>
     </Content>
     <Content Include="EDM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EDM.edmx</DependentUpon>
       <LastGenOutput>EDM.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

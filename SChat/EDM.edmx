@@ -4,46 +4,57 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="Хранилище SChatDataBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
+      <Schema Namespace="Хранилище SChatDataBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Chat">
           <Key>
             <PropertyRef Name="IdChat" />
           </Key>
-          <Property Name="IdChat" Nullable="false" Type="int" />
-          <Property Name="Name" Nullable="false" MaxLength="50" Type="nvarchar" />
+          <Property Name="IdChat" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="IdMessage" />
           </Key>
-          <Property Name="IdMessage" Nullable="false" Type="int" />
-          <Property Name="IdChat" Nullable="false" Type="int" />
-          <Property Name="Content" Nullable="false" Type="nvarchar(max)" />
-          <Property Name="Date" Nullable="false" Type="datetime" />
+          <Property Name="IdMessage" Type="int" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="IdChat" Type="int" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" Type="int" />
-          <Property Name="NickName" Nullable="false" MaxLength="30" Type="nvarchar" />
-          <Property Name="Password" Nullable="false" MaxLength="50" Type="nvarchar" />
-          <Property Name="Email" Nullable="false" MaxLength="50" Type="nvarchar" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Birthday" Type="datetime" />
-          <Property Name="PhoneNumber" MaxLength="10" Type="nvarchar" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" />
           <Property Name="ProfileImgSource" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="UserChat">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" Type="int" />
-          <Property Name="IdUser" Nullable="false" Type="int" />
-          <Property Name="IdChat" Nullable="false" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="IdChat" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Message_Chat">
-          <End Type="Self.Chat" Multiplicity="1" Role="Chat" />
-          <End Type="Self.Message" Multiplicity="*" Role="Message" />
+          <End Role="Chat" Type="Self.Chat" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Chat">
               <PropertyRef Name="IdChat" />
@@ -53,9 +64,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Message_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserChat_Chat">
-          <End Type="Self.Chat" Multiplicity="1" Role="Chat" />
-          <End Type="Self.UserChat" Multiplicity="*" Role="UserChat" />
+          <End Role="Chat" Type="Self.Chat" Multiplicity="1" />
+          <End Role="UserChat" Type="Self.UserChat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Chat">
               <PropertyRef Name="IdChat" />
@@ -66,8 +89,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserChat_User">
-          <End Type="Self.User" Multiplicity="1" Role="User" />
-          <End Type="Self.UserChat" Multiplicity="*" Role="UserChat" />
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserChat" Type="Self.UserChat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -80,19 +103,24 @@
         <EntityContainer Name="Хранилище SChatDataBaseModelContainer">
           <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserChat" EntityType="Self.UserChat" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Message_Chat" Association="Self.FK_Message_Chat">
-            <End EntitySet="Chat" Role="Chat" />
-            <End EntitySet="Message" Role="Message" />
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User" Association="Self.FK_Message_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
           </AssociationSet>
           <AssociationSet Name="FK_UserChat_Chat" Association="Self.FK_UserChat_Chat">
-            <End EntitySet="Chat" Role="Chat" />
-            <End EntitySet="UserChat" Role="UserChat" />
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="UserChat" EntitySet="UserChat" />
           </AssociationSet>
           <AssociationSet Name="FK_UserChat_User" Association="Self.FK_UserChat_User">
-            <End EntitySet="User" Role="User" />
-            <End EntitySet="UserChat" Role="UserChat" />
+            <End Role="User" EntitySet="User" />
+            <End Role="UserChat" EntitySet="UserChat" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -114,10 +142,22 @@
             <PropertyRef Name="IdMessage" />
           </Key>
           <Property Name="IdMessage" Type="Int32" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
           <Property Name="IdChat" Type="Int32" Nullable="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Chat" Relationship="Self.FK_Message_Chat" FromRole="Message" ToRole="Chat" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Message_User" FromRole="Message" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -130,6 +170,7 @@
           <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="ProfileImgSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Message" Relationship="Self.FK_Message_User" FromRole="User" ToRole="Message" />
           <NavigationProperty Name="UserChat" Relationship="Self.FK_UserChat_User" FromRole="User" ToRole="UserChat" />
         </EntityType>
         <EntityType Name="UserChat">
@@ -166,6 +207,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Message_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserChat_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="UserChat" Type="Self.UserChat" Multiplicity="*" />
@@ -181,6 +234,7 @@
         <EntityContainer Name="SChatDataBaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Chat" EntityType="Self.Chat" />
           <EntitySet Name="Message" EntityType="Self.Message" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="UserChat" EntityType="Self.UserChat" />
           <AssociationSet Name="FK_Message_Chat" Association="Self.FK_Message_Chat">
@@ -190,6 +244,10 @@
           <AssociationSet Name="FK_UserChat_Chat" Association="Self.FK_UserChat_Chat">
             <End Role="Chat" EntitySet="Chat" />
             <End Role="UserChat" EntitySet="UserChat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User" Association="Self.FK_Message_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Message" EntitySet="Message" />
           </AssociationSet>
           <AssociationSet Name="FK_UserChat_User" Association="Self.FK_UserChat_User">
             <End Role="User" EntitySet="User" />
@@ -214,9 +272,21 @@
             <EntityTypeMapping TypeName="SChatDataBaseModel.Message">
               <MappingFragment StoreEntitySet="Message">
                 <ScalarProperty Name="IdMessage" ColumnName="IdMessage" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="IdChat" ColumnName="IdChat" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SChatDataBaseModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

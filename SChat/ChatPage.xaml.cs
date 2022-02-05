@@ -34,6 +34,8 @@ namespace SChat
                 Message newMessage = new Message()
                 {
                     IdMessage = messageId,
+                    IdUser = Profile.UserId,
+                    IdChat = Profile.openedChat,
                     Content = MsgBox.Text,
                     Date = DateTime.Now
                 };
@@ -88,46 +90,37 @@ namespace SChat
         }
         private void LoadingMessages()
         {
-            foreach (ChatMessage chat in cnt.db.ChatMessage.OrderByDescending(cht => cht.Id).Take(25).OrderBy(cht => cht.Id).ToList())
+            foreach (Message msg in cnt.db.Message.Where(chat => chat.IdChat == Profile.openedChat).OrderByDescending(id => id.IdMessage).Take(25).OrderBy(id => id.IdMessage).ToList())
             {
-                string author = "AUTHOR";
-                string content = cnt.db.Message.Where(msg => msg.IdMessage == chat.IdMessage).Select(msg => msg.Content).FirstOrDefault();
-                DateTime dt = Convert.ToDateTime(cnt.db.Message.Where(msg => msg.IdMessage == chat.IdMessage).Select(msg => msg.Date).FirstOrDefault());
-                if (chat.IdChat == Profile.openedChat)
-                    SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), Profile.ImgSource);
+                string author = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.NickName).FirstOrDefault();
+                string content = msg.Content;
+                DateTime dt = msg.Date;
+                string imgSource = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.ProfileImgSource).FirstOrDefault();
+                SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
             }
             scroll.ScrollToEnd();
         }
         private void AddSomeMessages(object sender, RoutedEventArgs e)
         {
-            for (int i = 0;i < Convert.ToInt32(CountBox.Text);i++)
-            {
-                string message = $"Message No.{cnt.db.ChatMessage.Select(p => p.Id).DefaultIfEmpty(0).Max()}";
-                SendMessage(Profile.NickName, message, DateTime.Now.ToString("dd.MM.yyyy HH:mm"), Profile.ImgSource);
-                int messageId = cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max() + 1;
+            //for (int i = 0;i < Convert.ToInt32(CountBox.Text);i++)
+            //{
+            //    string message = $"Message No.{cnt.db.ChatMessage.Select(p => p.Id).DefaultIfEmpty(0).Max()}";
+            //    SendMessage(Profile.NickName, message, DateTime.Now.ToString("dd.MM.yyyy HH:mm"), Profile.ImgSource);
+            //    int messageId = cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max() + 1;
 
-                Message newMessage = new Message()
-                {
-                    IdMessage = messageId,
-                    IdChat = Profile.openedChat,
-                    Content = message,
-                    Date = DateTime.Now
+            //    Message newMessage = new Message()
+            //    {
+            //        IdMessage = messageId,
+            //        IdChat = Profile.openedChat,
+            //        Content = message,
+            //        Date = DateTime.Now
 
-                };
-                cnt.db.Message.Add(newMessage);
-                cnt.db.SaveChanges();
-
-                ChatMessage newChatMessage = new ChatMessage()
-                {
-                    Id = cnt.db.ChatMessage.Select(p => p.Id).DefaultIfEmpty(0).Max() + 1,
-                    IdChat = Profile.openedChat,
-                    IdMessage = messageId
-                };
-                cnt.db.ChatMessage.Add(newChatMessage);
-                cnt.db.SaveChanges();
-            }
-            LoadingMessages();
-            scroll.ScrollToEnd();
+            //    };
+            //    cnt.db.Message.Add(newMessage);
+            //    cnt.db.SaveChanges();
+            //}
+            //LoadingMessages();
+            //scroll.ScrollToEnd();
         }
     }
 }

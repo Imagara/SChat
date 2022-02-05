@@ -12,15 +12,12 @@ namespace SChat
     using System;
     using System.Collections.Generic;
     
-    public partial class Message
+    public partial class sysdiagrams
     {
-        public int IdMessage { get; set; }
-        public int IdUser { get; set; }
-        public int IdChat { get; set; }
-        public string Content { get; set; }
-        public System.DateTime Date { get; set; }
-    
-        public virtual Chat Chat { get; set; }
-        public virtual User User { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

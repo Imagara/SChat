@@ -23,7 +23,7 @@ namespace SChat
         public ChatPage()
         {
             InitializeComponent();
-            LoadingMessages();
+            Update();
         }
         private void SendMessageButton(object sender, MouseButtonEventArgs e)
         {
@@ -100,27 +100,30 @@ namespace SChat
             }
             scroll.ScrollToEnd();
         }
+        private void Update()
+        {
+            LoadingMessages();
+            ChatName.Content = cnt.db.Chat.Where(item => item.IdChat == Profile.openedChat).Select(item => item.Name).FirstOrDefault();
+        }
         private void AddSomeMessages(object sender, RoutedEventArgs e)
         {
-            //for (int i = 0;i < Convert.ToInt32(CountBox.Text);i++)
-            //{
-            //    string message = $"Message No.{cnt.db.ChatMessage.Select(p => p.Id).DefaultIfEmpty(0).Max()}";
-            //    SendMessage(Profile.NickName, message, DateTime.Now.ToString("dd.MM.yyyy HH:mm"), Profile.ImgSource);
-            //    int messageId = cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max() + 1;
-
-            //    Message newMessage = new Message()
-            //    {
-            //        IdMessage = messageId,
-            //        IdChat = Profile.openedChat,
-            //        Content = message,
-            //        Date = DateTime.Now
-
-            //    };
-            //    cnt.db.Message.Add(newMessage);
-            //    cnt.db.SaveChanges();
-            //}
-            //LoadingMessages();
-            //scroll.ScrollToEnd();
+            for (int i = 0; i < Convert.ToInt32(CountBox.Text); i++)
+            {
+                string message = $"Message No.{cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max()}";
+                int messageId = cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max() + 1;
+                Message newMessage = new Message()
+                {
+                    IdMessage = messageId,
+                    IdUser = Profile.UserId,
+                    IdChat = Profile.openedChat,
+                    Content = message,
+                    Date = DateTime.Now
+                };
+                cnt.db.Message.Add(newMessage);
+                cnt.db.SaveChanges();
+            }
+            LoadingMessages();
+            scroll.ScrollToEnd();
         }
     }
 }

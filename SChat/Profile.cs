@@ -10,7 +10,7 @@ namespace SChat
     {
         public static int UserId { get; set; }
         public static string NickName { get; set; }
-        public static string ImgSource = cnt.db.User.First(item => item.Id == 1).ProfileImgSource;
+        public static string ImgSource { get; set; }
         public static int openedChat { get; set; }
     }
 }

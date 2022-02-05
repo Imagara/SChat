@@ -43,5 +43,11 @@ namespace SChat
         {
             MainFrame.Content = new ProfilePage();
         }
+        private void TempExit(object sender, RoutedEventArgs e)
+        {
+            LoginWindow lw = new LoginWindow();
+            lw.Show();
+            this.Close();
+        }
     }
 }

@@ -172,9 +172,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\av.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\message.png" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +189,7 @@
       <DependentUpon>EDM.edmx</DependentUpon>
       <LastGenOutput>EDM.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\StandartImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

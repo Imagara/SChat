@@ -17,7 +17,8 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <Label Content="CHATNAME" 
+            <Label Name="ChatName"
+                   Content="CHATNAME" 
                    Foreground="White" />
             <TextBox Name="CountBox" Width="40"/>
             <Button Margin="342,0,163,0" Content="AddTestMessages" Click="AddSomeMessages"/>

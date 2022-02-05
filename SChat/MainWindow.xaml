@@ -68,12 +68,18 @@
                    
                 </StackPanel>
                 </ScrollViewer>
-                <Button 
+                <StackPanel VerticalAlignment="Bottom" >
+                    <Button 
                     Content="Добавить новый чат"
-                    VerticalAlignment="Bottom" 
                     Height="30"
                     Click="AddNewChat">
-                </Button>
+                    </Button>
+                    <Button 
+                    Content="Выход"
+                    Height="30"
+                    Click="TempExit">
+                    </Button>
+                </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
                 <Image 

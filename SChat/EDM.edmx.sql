@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/06/2022 03:45:07
--- Generated from EDMX file: C:\Users\milic\source\repos\Chat\SChat\EDM.edmx
+-- Date Created: 02/07/2022 13:12:27
+-- Generated from EDMX file: C:\Users\gr692_gav\Source\Repos\SChat\SChat\EDM.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -20,11 +20,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_Message_Chat]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Message] DROP CONSTRAINT [FK_Message_Chat];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Message_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Message] DROP CONSTRAINT [FK_Message_User];
-GO
 IF OBJECT_ID(N'[dbo].[FK_UserChat_Chat]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserChat] DROP CONSTRAINT [FK_UserChat_Chat];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Message_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Message] DROP CONSTRAINT [FK_Message_User];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserChat_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserChat] DROP CONSTRAINT [FK_UserChat_User];

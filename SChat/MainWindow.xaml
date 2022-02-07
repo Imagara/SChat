@@ -25,28 +25,28 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
+
                     <StackPanel 
                     Name="ChatStackPanel"
-                    Margin="0,0,0,30">
-                    <Grid Name="ChatGridMain"
+                    Margin="8,10,8,60">
+                        <Grid Name="ChatGridMain"
                           MouseDown="NewChatSelected"
                           Visibility="Visible"
-                          Margin="10" 
-                          Width="130" 
+                          Margin="0,0,0,20"
                           Height="40">
                           <Image Name="ChatImage"
                               Margin="5,0,0,0"
                               HorizontalAlignment="Left"
                               Width="30"
                               Height="30"
-                              Source="Resources/av.jpg">
+                              Source="Resources/StandartImage.png">
                           </Image>
                         <Grid 
                             Name="ChatGridText"
                             Margin="40,0,0,0">
                             <Label 
                                 Name="ChatNameLabel"
-                                Content="Name"
+                                Content="ChatName"
                                 FontWeight="Bold"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
@@ -88,7 +88,7 @@
                     HorizontalAlignment="Left"
                     Width="30"
                     Height="30"
-                    Source="Resources/av.jpg">
+                    Source="Resources/StandartImage.png">
                 </Image>
                 <Grid Margin="40,0,0,0" 
                       MouseDown="Profile_MouseDown">

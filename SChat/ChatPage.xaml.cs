@@ -53,7 +53,7 @@ namespace SChat
             messageGrid.Background = Brushes.White;
             messageGrid.HorizontalAlignment = HorizontalAlignment.Left;
             messageGrid.Height = 40;
-            messageGrid.Width = 624;
+            messageGrid.Width = 580;
             messageGrid.Margin = new Thickness(10, 0, 10, 10);
 
             Image messageImage = new Image();
@@ -86,10 +86,11 @@ namespace SChat
             messageLabel.VerticalAlignment = VerticalAlignment.Bottom;
             messageLabel.Margin = new Thickness(40, 0, 0, 0);
             messageGrid.Children.Add(messageLabel);
-            MessageStackPanel.Children.Add(messageGrid);
+            MessageListBox.Items.Add(messageGrid);
         }
         private void LoadingMessages()
         {
+            MessageListBox.Items.Clear();
             foreach (Message msg in cnt.db.Message.Where(chat => chat.IdChat == Profile.openedChat).OrderByDescending(id => id.IdMessage).Take(25).OrderBy(id => id.IdMessage).ToList())
             {
                 string author = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.NickName).FirstOrDefault();

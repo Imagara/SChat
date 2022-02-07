@@ -27,35 +27,11 @@
         <Grid Grid.Row="1">
             <ScrollViewer Name="scroll"
                           VerticalScrollBarVisibility="Visible">
-                <StackPanel Name="MessageStackPanel">
-                    <Grid Background="White"
-                          Margin="10,0,10,10"
-                          Width="624"
-                          Visibility="Visible"
-                          Height="40">
-
-                        <Image Width="35"
-                               Height="35"
-                               Source="Resources/av.jpg"
-                               Margin="5"
-                               HorizontalAlignment="Left"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Label 
-                                Content="Author" 
-                                Margin="40,0,0,0"
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"/>
-                            <Label
-                                Content="01.02.2022"/>
-                        </StackPanel>
-                        <Label 
-                            Content="Message"
-                            Margin="40,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom" 
-                            Width="574"/>
-                    </Grid>
-                </StackPanel>
+                <ListBox Name="MessageListBox" 
+                         HorizontalAlignment="Center"
+                         Background="LightGray"
+                         Width="617">
+                </ListBox>
             </ScrollViewer>
         </Grid>
 

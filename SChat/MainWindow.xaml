@@ -25,48 +25,37 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
-
-                    <StackPanel 
-                    Name="ChatStackPanel"
-                    Margin="8,10,8,60">
-                        <Grid Name="ChatGridMain"
-                          MouseDown="NewChatSelected"
-                          Visibility="Visible"
-                          Margin="0,0,0,20"
-                          Height="40">
-                          <Image Name="ChatImage"
+                    <ListBox Name="ChatListBox" 
+                             HorizontalAlignment="Center"
+                             Background="LightGray">
+                        <Grid Height="40">
+                            <Image
                               Margin="5,0,0,0"
                               HorizontalAlignment="Left"
                               Width="30"
                               Height="30"
                               Source="Resources/StandartImage.png">
-                          </Image>
-                        <Grid 
-                            Name="ChatGridText"
-                            Margin="40,0,0,0">
-                            <Label 
-                                Name="ChatNameLabel"
+                            </Image>
+                            <Grid Margin="40,0,0,0">
+                                <Label
                                 Content="ChatName"
                                 FontWeight="Bold"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 FontSize="10"
                                 Width="90"/>
-                            <Label 
-                                Name="ChatTextLabel"
+                                <Label
                                 Content="Some text..."
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Bottom"
                                 FontSize="10" 
                                 Width="90"/>
-                        </Grid>
-                        <Border
-                            Name="ChatBorder"
+                            </Grid>
+                            <Border
                             BorderBrush="Black"
                             BorderThickness="1.3"/>
-                    </Grid>
-                   
-                </StackPanel>
+                        </Grid>
+                    </ListBox>
                 </ScrollViewer>
                 <StackPanel VerticalAlignment="Bottom" >
                     <Button 

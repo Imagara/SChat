@@ -54,7 +54,7 @@ namespace SChat
             messageGrid.HorizontalAlignment = HorizontalAlignment.Left;
             messageGrid.Height = 40;
             messageGrid.Width = 580;
-            messageGrid.Margin = new Thickness(10, 0, 10, 10);
+            messageGrid.Margin = new Thickness(10, 5, 10, 5);
 
             Image messageImage = new Image();
             messageImage.Source = new BitmapImage(new Uri(imageSource));

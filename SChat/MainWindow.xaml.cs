@@ -26,8 +26,12 @@ namespace SChat
             ProfileName.Content = Profile.NickName;
             ProfileImage.Source = new BitmapImage(new Uri(Profile.ImgSource));
         }
-
+        
         private void AddNewChat(object sender, RoutedEventArgs e)
+        {
+            //
+        }
+        private void AddNewChat(string chatNameS, string chatLastMessageS,string chatImgSource)
         {
             Grid chatGrid = new Grid();
             chatGrid.Height = 40;
@@ -37,14 +41,14 @@ namespace SChat
             chatImg.HorizontalAlignment = HorizontalAlignment.Left;
             chatImg.Width = 30;
             chatImg.Height = 30;
-            chatImg.Source = new BitmapImage(new Uri(cnt.db.User.Select(user => user.ProfileImgSource).FirstOrDefault()));
+            chatImg.Source = new BitmapImage(new Uri(chatImgSource));
             chatGrid.Children.Add(chatImg);
 
             Grid textGrid = new Grid();
             textGrid.Margin = new Thickness(40, 0, 0, 0);
 
             Label chatName = new Label();
-            chatName.Content = "ChatName";
+            chatName.Content = chatNameS;
             chatName.FontWeight = FontWeights.Bold;
             chatName.HorizontalAlignment = HorizontalAlignment.Left;
             chatName.VerticalAlignment = VerticalAlignment.Top;
@@ -53,7 +57,7 @@ namespace SChat
             textGrid.Children.Add(chatName);
 
             Label chatLastMessage = new Label();
-            chatLastMessage.Content = "ChatLastMessage";
+            chatLastMessage.Content = chatLastMessageS;
             chatLastMessage.HorizontalAlignment = HorizontalAlignment.Left;
             chatLastMessage.VerticalAlignment = VerticalAlignment.Bottom;
             chatLastMessage.FontSize = 10;
@@ -72,6 +76,18 @@ namespace SChat
         private void OnLoad(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new ChatPage();
+        }
+        private void Update(object sender, RoutedEventArgs e)
+        {
+            ChatListBox.Items.Clear();
+            foreach (UserChat cht in cnt.db.UserChat.Where(chat => chat.IdUser == Profile.UserId).ToList())
+            {
+                string author = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.NickName).FirstOrDefault();
+                string content = msg.Content;
+                DateTime dt = msg.Date;
+                string imgSource = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.ProfileImgSource).FirstOrDefault();
+                AddNewChat(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
+            }
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)
         {

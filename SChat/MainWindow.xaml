@@ -60,8 +60,7 @@
                 <StackPanel VerticalAlignment="Bottom" >
                     <Button 
                     Content="Добавить новый чат"
-                    Height="30"
-                    Click="AddNewChat">
+                    Height="30">
                     </Button>
                     <Button 
                     Content="Выход"

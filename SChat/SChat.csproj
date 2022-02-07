@@ -96,9 +96,6 @@
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>EDM.tt</DependentUpon>
-    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>EDM.tt</DependentUpon>
     </Compile>

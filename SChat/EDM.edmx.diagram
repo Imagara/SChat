@@ -4,12 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2818c1fad47b4c9d9ccd180a8e9b7724" Name="Diagram1">
-        <EntityTypeShape EntityType="SChatDataBaseModel.Chat" Width="1.5" PointX="3.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SChatDataBaseModel.Message" Width="1.5" PointX="0.5" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SChatDataBaseModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SChatDataBaseModel.User" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SChatDataBaseModel.UserChat" Width="1.5" PointX="3.25" PointY="0.5" IsExpanded="true" />
+      <Diagram DiagramId="592e2f8e33524efb81ccf0542d4e7ce3" Name="Diagram1">
+        <EntityTypeShape EntityType="SChatDataBaseModel.Chat" Width="1.5" PointX="3.375" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SChatDataBaseModel.Message" Width="1.5" PointX="0.625" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SChatDataBaseModel.User" Width="1.5" PointX="0.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SChatDataBaseModel.UserChat" Width="1.5" PointX="3.375" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="SChatDataBaseModel.FK_Message_Chat" ManuallyRouted="false" />
         <AssociationConnector Association="SChatDataBaseModel.FK_UserChat_Chat" ManuallyRouted="false" />
         <AssociationConnector Association="SChatDataBaseModel.FK_Message_User" ManuallyRouted="false" />

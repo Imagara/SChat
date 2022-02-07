@@ -23,6 +23,7 @@ namespace SChat
     
         public int IdChat { get; set; }
         public string Name { get; set; }
+        public string ImgSource { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Message { get; set; }

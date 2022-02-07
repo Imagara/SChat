@@ -25,6 +25,7 @@ namespace SChat
             InitializeComponent();
             ProfileName.Content = Profile.NickName;
             ProfileImage.Source = new BitmapImage(new Uri(Profile.ImgSource));
+            LoadingChat();
         }
         
         private void AddNewChat(object sender, RoutedEventArgs e)
@@ -35,6 +36,7 @@ namespace SChat
         {
             Grid chatGrid = new Grid();
             chatGrid.Height = 40;
+            chatGrid.Margin = new Thickness(0, 2, 0, 2);
 
             Image chatImg = new Image();
             chatImg.Margin = new Thickness(5,0,0,0);
@@ -77,16 +79,15 @@ namespace SChat
         {
             MainFrame.Content = new ChatPage();
         }
-        private void Update(object sender, RoutedEventArgs e)
+        private void LoadingChat()
         {
             ChatListBox.Items.Clear();
             foreach (UserChat cht in cnt.db.UserChat.Where(chat => chat.IdUser == Profile.UserId).ToList())
             {
-                string author = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.NickName).FirstOrDefault();
-                string content = msg.Content;
-                DateTime dt = msg.Date;
-                string imgSource = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.ProfileImgSource).FirstOrDefault();
-                AddNewChat(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
+                string chatName = cnt.db.Chat.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.Name).FirstOrDefault();
+                string chatLastMessage = cnt.db.Message.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.Content).FirstOrDefault();
+                string chatImgSource = cnt.db.Chat.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.ImgSource).FirstOrDefault();
+                AddNewChat(chatName, chatLastMessage, chatImgSource);
             }
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)
@@ -102,6 +103,13 @@ namespace SChat
             LoginWindow lw = new LoginWindow();
             lw.Show();
             this.Close();
+        }
+        private void ChatListDoubleClick(object sender, RoutedEventArgs e)
+        {
+            if (ChatListBox.SelectedItem != null)
+            {
+                MessageBox.Show("Q" + ChatListBox.SelectedItems);
+            }    
         }
     }
 }

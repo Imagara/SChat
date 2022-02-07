@@ -27,8 +27,9 @@
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <ListBox Name="ChatListBox" 
                              HorizontalAlignment="Center"
-                             Background="LightGray">
-                        <Grid Height="40">
+                             Background="LightGray"
+                             MouseDoubleClick="ChatListDoubleClick">
+                        <Grid Height="40" Visibility="Hidden">
                             <Image
                               Margin="5,0,0,0"
                               HorizontalAlignment="Left"

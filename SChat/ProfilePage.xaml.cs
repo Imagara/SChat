@@ -23,6 +23,12 @@ namespace SChat
         public ProfilePage()
         {
             InitializeComponent();
+            
+        }
+
+        private void SaveInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

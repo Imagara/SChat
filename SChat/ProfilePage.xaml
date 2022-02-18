@@ -10,6 +10,35 @@
       Title="ChatPage">
 
     <Grid Background="Gray">
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150*"/>
+            <RowDefinition Height="271*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0"
+               Source="Resources/StandartImage.png">
+        </Image>
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center">
+            <Label Content="Электронная почта" 
+                   FontSize="20"/>
+            <TextBox Name="EmailBox"
+                     Height="30"
+                     FontSize="20"/>
+            <Label Content="Дата рождения"
+                   FontSize="20"/>
+            <TextBox Name="BirthdayBox"
+                     Height="30"
+                     FontSize="20"/>
+            <Label Content="Номер телефона"
+                   FontSize="20"/>
+            <TextBox Name="PhoneBox"
+                     Height="30"
+                     FontSize="20"/>
+            <Button Content="Сохранить"
+                    Margin="0,20,0,0"
+                    Height="30"
+                    VerticalAlignment="Bottom" Click="SaveInfoButton_Click"></Button>
+        </StackPanel>
     </Grid>
 </Page>

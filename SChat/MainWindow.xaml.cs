@@ -56,6 +56,7 @@ namespace SChat
             chatName.VerticalAlignment = VerticalAlignment.Top;
             chatName.FontSize = 10;
             chatName.Width = 90;
+            chatName.MouseDown += NewChatSelected;
             textGrid.Children.Add(chatName);
 
             Label chatLastMessage = new Label();
@@ -77,7 +78,7 @@ namespace SChat
         }
         private void OnLoad(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new ChatPage();
+            MainFrame.Content = new WelcomePage();
         }
         private void LoadingChat()
         {
@@ -92,6 +93,7 @@ namespace SChat
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)
         {
+            Profile.openedChat = Convert.ToInt32(cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).Select(item => item.IdChat).FirstOrDefault());
             MainFrame.Content = new ChatPage();
         }
         private void Profile_MouseDown(object sender, MouseButtonEventArgs e)
@@ -103,13 +105,6 @@ namespace SChat
             LoginWindow lw = new LoginWindow();
             lw.Show();
             this.Close();
-        }
-        private void ChatListDoubleClick(object sender, RoutedEventArgs e)
-        {
-            if (ChatListBox.SelectedItem != null)
-            {
-                MessageBox.Show("Q" + ChatListBox.SelectedItems);
-            }    
         }
     }
 }

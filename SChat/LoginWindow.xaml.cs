@@ -38,7 +38,6 @@ namespace SChat
             Profile.UserId = Convert.ToInt32(logbox.Text);
             Profile.ImgSource = cnt.db.User.Where(item => item.Id == Profile.UserId).Select(item => item.ProfileImgSource).FirstOrDefault();
             Profile.NickName = cnt.db.User.Where(item => item.Id == Profile.UserId).Select(item => item.NickName).FirstOrDefault();
-            Profile.openedChat = Convert.ToInt32(chatid.Text);
             MainWindow mw = new MainWindow();
             mw.Show();
             this.Close();

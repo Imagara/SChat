@@ -49,7 +49,6 @@
             Height="40" 
             Width="240"
             FontSize="20"/>
-            <TextBox Name="chatid" Height="36"></TextBox>
         </StackPanel>
         <StackPanel
             Orientation="Horizontal"

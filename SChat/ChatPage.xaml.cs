@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//using System.Threading;
 
 namespace SChat
 {
@@ -23,7 +24,12 @@ namespace SChat
         public ChatPage()
         {
             InitializeComponent();
-            Update();
+            ChatName.Content = cnt.db.Chat.Where(item => item.IdChat == Profile.openedChat).Select(item => item.Name).FirstOrDefault();
+            LoadingMessages();
+
+
+            //Thread update = new Thread(Update);
+            //update.Start();
         }
         private void SendMessageButton(object sender, MouseButtonEventArgs e)
         {
@@ -34,14 +40,13 @@ namespace SChat
                 Message newMessage = new Message()
                 {
                     IdMessage = messageId,
-                    IdUser = Profile.UserId,
+                    IdUser = Profile.userId,
                     IdChat = Profile.openedChat,
                     Content = MsgBox.Text,
                     Date = DateTime.Now
                 };
                 cnt.db.Message.Add(newMessage);
                 cnt.db.SaveChanges();
-
                 MsgBox.Text = "";
             }
             LoadingMessages();
@@ -88,7 +93,15 @@ namespace SChat
             messageGrid.Children.Add(messageLabel);
             MessageListBox.Items.Add(messageGrid);
         }
-        private void LoadingMessages()
+        void Update()
+        {
+            while(true)
+            {
+                LoadingMessages();
+                //Thread.Sleep(1000);
+            }
+        }
+        void LoadingMessages()
         {
             MessageListBox.Items.Clear();
             foreach (Message msg in cnt.db.Message.Where(chat => chat.IdChat == Profile.openedChat).OrderByDescending(id => id.IdMessage).Take(25).OrderBy(id => id.IdMessage).ToList())
@@ -101,11 +114,6 @@ namespace SChat
             }
             scroll.ScrollToEnd();
         }
-        private void Update()
-        {
-            LoadingMessages();
-            ChatName.Content = cnt.db.Chat.Where(item => item.IdChat == Profile.openedChat).Select(item => item.Name).FirstOrDefault();
-        }
         private void AddSomeMessages(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < Convert.ToInt32(CountBox.Text); i++)
@@ -115,7 +123,7 @@ namespace SChat
                 Message newMessage = new Message()
                 {
                     IdMessage = messageId,
-                    IdUser = Profile.UserId,
+                    IdUser = Profile.userId,
                     IdChat = Profile.openedChat,
                     Content = message,
                     Date = DateTime.Now
@@ -123,7 +131,7 @@ namespace SChat
                 cnt.db.Message.Add(newMessage);
                 cnt.db.SaveChanges();
             }
-            LoadingMessages();
+            //LoadingMessages();
             scroll.ScrollToEnd();
         }
     }

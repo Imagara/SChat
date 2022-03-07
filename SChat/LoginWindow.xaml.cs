@@ -35,9 +35,9 @@ namespace SChat
             //    MessageBox.Show("Неверный логин или пароль");
             //else
             //{
-            Profile.UserId = Convert.ToInt32(logbox.Text);
-            Profile.ImgSource = cnt.db.User.Where(item => item.Id == Profile.UserId).Select(item => item.ProfileImgSource).FirstOrDefault();
-            Profile.NickName = cnt.db.User.Where(item => item.Id == Profile.UserId).Select(item => item.NickName).FirstOrDefault();
+            Profile.userId = Convert.ToInt32(logbox.Text);
+            Profile.imgSource = cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault();
+            Profile.nickName = cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.NickName).FirstOrDefault();
             MainWindow mw = new MainWindow();
             mw.Show();
             this.Close();

@@ -8,9 +8,9 @@ namespace SChat
 {
     public class Profile
     {
-        public static int UserId { get; set; }
-        public static string NickName { get; set; }
-        public static string ImgSource { get; set; }
+        public static int userId { get; set; }
+        public static string nickName { get; set; }
+        public static string imgSource { get; set; }
         public static int openedChat { get; set; }
     }
 }

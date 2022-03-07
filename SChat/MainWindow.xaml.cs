@@ -15,16 +15,13 @@ using System.Windows.Shapes;
 
 namespace SChat
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            ProfileName.Content = Profile.NickName;
-            ProfileImage.Source = new BitmapImage(new Uri(Profile.ImgSource));
+            ProfileName.Content = Profile.nickName;
+            ProfileImage.Source = new BitmapImage(new Uri(Profile.imgSource));
             LoadingChat();
         }
         
@@ -83,7 +80,7 @@ namespace SChat
         private void LoadingChat()
         {
             ChatListBox.Items.Clear();
-            foreach (UserChat cht in cnt.db.UserChat.Where(chat => chat.IdUser == Profile.UserId).ToList())
+            foreach (UserChat cht in cnt.db.UserChat.Where(chat => chat.IdUser == Profile.userId).ToList())
             {
                 string chatName = cnt.db.Chat.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.Name).FirstOrDefault();
                 string chatLastMessage = cnt.db.Message.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.Content).FirstOrDefault();

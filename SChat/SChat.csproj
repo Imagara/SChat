@@ -83,6 +83,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EDM.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ImagesManip.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>

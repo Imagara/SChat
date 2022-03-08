@@ -109,8 +109,8 @@ namespace SChat
                 string author = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.NickName).FirstOrDefault();
                 string content = msg.Content;
                 DateTime dt = msg.Date;
-                string imgSource = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.ProfileImgSource).FirstOrDefault();
-                SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
+                //string imgSource = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.ProfileImgSource).FirstOrDefault();
+                //SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
             }
             scroll.ScrollToEnd();
         }

@@ -5,8 +5,86 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SChat"
         mc:Ignorable="d"
-        Title="RegisterWindow" Height="450" Width="800">
+        Title="Окно регистрации"
+        Height="450"
+        Width="800">
     <Grid Background="Gray">
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="334*"/>
+            <RowDefinition Height="85*"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Orientation="Vertical"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+            <Label 
+                Content="Email:" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Height="40" 
+                Width="240"
+                FontSize="20"/>
+            <TextBox 
+                x:Name="EmailBox" 
+                HorizontalAlignment="Left" 
+                TextWrapping="Wrap" 
+                VerticalAlignment="Top" 
+                Height="40" 
+                Width="240"
+                FontSize="20"/>
+            <Label 
+                Content="Логин:" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Height="40" 
+                Width="240"
+                FontSize="20"/>
+            <TextBox 
+                x:Name="NickNameBox" 
+                HorizontalAlignment="Left" 
+                TextWrapping="Wrap" 
+                VerticalAlignment="Top" 
+                Height="40" 
+                Width="240"
+                FontSize="20"/>
+            <Label 
+                Content="Пароль:" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Height="40" 
+                Width="240"
+                FontSize="20"/>
+            <PasswordBox 
+                x:Name="PassBox" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Height="40" 
+                Width="240"
+                FontSize="20"/>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <Button 
+                x:Name="BackButton" 
+                Content="Назад"
+                Height="40" 
+                Width="150"
+                Margin="0,0,15,0"
+                FontSize="20"
+                Click="BackButton_Click"/>
+            <Button 
+                x:Name="RegButton" 
+                Content="Регистрация"
+                Height="40" 
+                Width="150" 
+                Margin="15,0,0,0"
+                FontSize="20"
+                Click="RegButton_Click"/>
+        </StackPanel>
+
     </Grid>
 </Window>

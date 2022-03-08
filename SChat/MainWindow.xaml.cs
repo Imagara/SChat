@@ -21,7 +21,7 @@ namespace SChat
         {
             InitializeComponent();
             ProfileName.Content = Profile.nickName;
-            ProfileImage.Source = new BitmapImage(new Uri(Profile.imgSource));
+            //ProfileImage.Source = new BitmapImage(new Uri(Profile.imgSource));
             LoadingChat();
         }
         
@@ -84,8 +84,8 @@ namespace SChat
             {
                 string chatName = cnt.db.Chat.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.Name).FirstOrDefault();
                 string chatLastMessage = cnt.db.Message.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.Content).FirstOrDefault();
-                string chatImgSource = cnt.db.Chat.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.ImgSource).FirstOrDefault();
-                AddNewChat(chatName, chatLastMessage, chatImgSource);
+                //string chatImgSource = cnt.db.Chat.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.ImgSource).FirstOrDefault();
+                //AddNewChat(chatName, chatLastMessage, chatImgSource);
             }
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)

@@ -25,23 +25,31 @@ namespace SChat
         }
         public void OnLoad(object sender, RoutedEventArgs e)
         {
-            logbox.Focus();
+            LogBox.Focus();
         }
         private void LogButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (!Functions.IsValidLogAndPass(logbox.Text, passbox.Password))
-            //    MessageBox.Show("Поля не могут быть пустыми");
-            //else if (!Functions.LoginCheck(logbox.Text, passbox.Password))
-            //    MessageBox.Show("Неверный логин или пароль");
-            //else
-            //{
-            Profile.userId = Convert.ToInt32(logbox.Text);
-            Profile.imgSource = cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault();
-            Profile.nickName = cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.NickName).FirstOrDefault();
-            MainWindow mw = new MainWindow();
-            mw.Show();
-            this.Close();
-            //}
+            try
+            {
+                if (!Functions.IsValidLogAndPass(LogBox.Text, PassBox.Password))
+                    MessageBox.Show("Поля не могут быть пустыми");
+                else if (!Functions.LoginCheck(LogBox.Text, PassBox.Password))
+                    MessageBox.Show("Неверный логин или пароль");
+                else
+                {
+                    Profile.userId = Convert.ToInt32(LogBox.Text);
+                    //Profile.imgSource = cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault();
+                    Profile.nickName = cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.NickName).FirstOrDefault();
+                    MainWindow mw = new MainWindow();
+                    mw.Show();
+                    this.Close();
+                }
+            }
+            catch
+            {
+
+            }
+            
 
         }
         private void RegButton_Click(object sender, RoutedEventArgs e)

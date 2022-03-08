@@ -114,25 +114,10 @@ namespace SChat
             }
             scroll.ScrollToEnd();
         }
-        private void AddSomeMessages(object sender, RoutedEventArgs e)
+
+        private void ChatSettings_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < Convert.ToInt32(CountBox.Text); i++)
-            {
-                string message = $"Message No.{cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max()}";
-                int messageId = cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max() + 1;
-                Message newMessage = new Message()
-                {
-                    IdMessage = messageId,
-                    IdUser = Profile.userId,
-                    IdChat = Profile.openedChat,
-                    Content = message,
-                    Date = DateTime.Now
-                };
-                cnt.db.Message.Add(newMessage);
-                cnt.db.SaveChanges();
-            }
-            //LoadingMessages();
-            scroll.ScrollToEnd();
+
         }
     }
 }

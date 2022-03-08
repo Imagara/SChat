@@ -190,12 +190,12 @@
       <DependentUpon>EDM.edmx</DependentUpon>
       <LastGenOutput>EDM.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EDM.edmx.sql" />
     <Content Include="EDM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EDM.edmx</DependentUpon>
       <LastGenOutput>EDM.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\setting.png" />
     <Resource Include="Resources\StandartImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

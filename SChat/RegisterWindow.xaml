@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SChat"
         mc:Ignorable="d"
-        Title="Окно регистрации"
-        Height="450"
-        Width="800">
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Height="350" 
+        Width="600"
+        Title="Окно регистрации">
     <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition Height="334*"/>

@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Loaded="OnLoad"
         ResizeMode="NoResize"
-        Title="Окно входа" 
-        Height="350" Width="600" 
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Height="350" 
+        Width="600"
+        Title="Окно входа">
     <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition/>

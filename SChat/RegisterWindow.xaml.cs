@@ -1,22 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SChat
 {
-    /// <summary>
-    /// Логика взаимодействия для RegisterWindow.xaml
-    /// </summary>
     public partial class RegisterWindow : Window
     {
         public RegisterWindow()
@@ -47,7 +33,8 @@ namespace SChat
                         Password = Encrypt.GetHash(PassBox.Password),
                         Email = EmailBox.Text
                     };
-
+                    cnt.db.User.Add(newUser);
+                    cnt.db.SaveChanges();
                     MessageBox.Show("Успешная регистрация");
                     LoginWindow lw = new LoginWindow();
                     lw.Show();
@@ -58,7 +45,6 @@ namespace SChat
             {
                 MessageBox.Show("Ошибка.");
             }
-            
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {

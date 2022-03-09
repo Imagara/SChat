@@ -14,7 +14,7 @@
                     VerticalAlignment="Center">
             <Image Width="200"
                    Height="200"
-                   Source="Resources/message.png"/>
+                   Source="Resources/StandartChat.png"/>
             <Label Content="Выберите чат" 
                    FontSize="30"/>
         </StackPanel>

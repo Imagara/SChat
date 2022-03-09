@@ -25,7 +25,12 @@
                 <Button Width="15" 
                         Height="15"
                         Click="ChatSettings_Click">
-                    <Image Source="Resources\setting.png"></Image>
+                    <Image Source="Resources\Setting.png"></Image>
+                </Button>
+                <Button Width="15" 
+                        Height="15"
+                        Click="ChatLeave_Click">
+                    <Image Source="Resources\Logout.png"></Image>
                 </Button>
             </StackPanel>
                 
@@ -50,11 +55,14 @@
                 FontSize="20"
                 Margin="0,0,50,0">
             </TextBox>
-            <Image
-                Margin="589,5,5,5"
-                Source="Resources/message.png"
-                MouseDown="SendMessageButton">
-            </Image>
+
+            <Button Margin="584,0,0,0"
+                    Click="SendMessageButton"
+                    IsDefault="True">
+                <Image Source="Resources/MessageSend.png"></Image>
+            </Button>
+            
+            
         </Grid>
 
     </Grid>

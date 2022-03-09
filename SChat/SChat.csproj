@@ -179,7 +179,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\message.png" />
+    <Resource Include="Resources\MessageSend.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -195,8 +195,10 @@
       <DependentUpon>EDM.edmx</DependentUpon>
       <LastGenOutput>EDM.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\setting.png" />
-    <Resource Include="Resources\StandartImage.png" />
+    <Resource Include="Resources\Logout.png" />
+    <Resource Include="Resources\StandartChat.png" />
+    <Resource Include="Resources\Setting.png" />
+    <Resource Include="Resources\StandartProfile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

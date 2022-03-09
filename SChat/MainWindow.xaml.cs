@@ -10,16 +10,16 @@ namespace SChat
 {
     public partial class MainWindow : Window
     {
-        User user = cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault();
         public MainWindow()
         {
             InitializeComponent();
             ProfileName.Content = Profile.nickName;
             if (cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
-                ProfileImage.Source = new BitmapImage(new Uri("pack://application:,,,/AssemblyName;component/Resources/StandartImage.png"));
+                ProfileImage.Source = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
             else
-                ProfileImage.Source = ImagesManip.NewImage(user);
+                ProfileImage.Source = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault());
             LoadingChat();
+            MainFrame.Content = new WelcomePage();
         }
         
         private void AddNewChat(object sender, RoutedEventArgs e)
@@ -28,6 +28,7 @@ namespace SChat
         }
         private void AddNewChat(string chatNameS, string chatLastMessageS,BitmapImage chatImgSource)
         {
+            MessageBox.Show("new chat added.");
             Grid chatGrid = new Grid();
             chatGrid.Height = 40;
             chatGrid.Margin = new Thickness(0, 2, 0, 2);
@@ -70,25 +71,34 @@ namespace SChat
 
             ChatListBox.Items.Add(chatGrid);
         }
-        private void OnLoad(object sender, RoutedEventArgs e)
+        public void LoadingChat()
         {
-            MainFrame.Content = new WelcomePage();
-        }
-        private void LoadingChat()
-        {
+            MessageBox.Show("Updating...");
             ChatListBox.Items.Clear();
             foreach (UserChat cht in cnt.db.UserChat.Where(chat => chat.IdUser == Profile.userId).ToList())
             {
-                string chatName = cnt.db.Chat.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.Name).FirstOrDefault();
-                string chatLastMessage = cnt.db.Message.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.Content).FirstOrDefault();
-                BitmapImage chatImgSource; // сделать img чата
-                if (cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
-                    chatImgSource = new BitmapImage(new Uri("pack://application:,,,/AssemblyName;component/Resources/StandartImage.png"));
-                else
-                    chatImgSource = ImagesManip.NewImage(user);
+                try
+                {
+                    string chatName = cnt.db.Chat.Where(chatt => chatt.IdChat == cht.IdChat).Select(chatt => chatt.Name).FirstOrDefault();
+                    string chatLastMessage = cnt.db.Message.Where(chatt => chatt.IdChat == cht.IdChat).OrderByDescending(order => order.IdMessage).Select(chatt => chatt.Content).FirstOrDefault();
+                    MessageBox.Show("LAST: " + chatLastMessage);
+                    if (chatLastMessage != null && chatLastMessage.Length > 10)
+                        chatLastMessage = chatLastMessage.Substring(0, 10) + "...";
+                    BitmapImage chatImgSource;
 
-                AddNewChat(chatName, chatLastMessage, chatImgSource);
+                    if (cnt.db.Chat.Where(item => item.IdChat == cht.IdChat).Select(item => item.ImgSource).FirstOrDefault() == null)
+                        chatImgSource = new BitmapImage(new Uri("../Resources/StandartChat.png", UriKind.RelativeOrAbsolute));
+                    else
+                        chatImgSource = ImagesManip.NewImage(cnt.db.Chat.Where(item => item.IdChat == cht.IdChat).FirstOrDefault());
+
+                    AddNewChat(chatName, chatLastMessage, chatImgSource);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
+            MessageBox.Show("Updated.");
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)
         {

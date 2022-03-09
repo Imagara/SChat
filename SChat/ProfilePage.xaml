@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Image x:Name="ProfileImage"
                Grid.Row="0"
-               Source="Resources/StandartImage.png"
+               Source="Resources/StandartProfile.png"
                MouseDown="ChangeImageProfile_MouseDown">
         </Image>
         <StackPanel Grid.Row="1"

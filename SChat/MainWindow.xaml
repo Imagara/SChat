@@ -9,7 +9,6 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
-        Loaded="OnLoad"
         Height="450" 
         Width="800">
     <Grid Background="DarkGray">
@@ -27,14 +26,15 @@
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <ListBox Name="ChatListBox" 
                              HorizontalAlignment="Center"
-                             Background="LightGray">
+                             Background="LightGray"
+                             Width="144">
                         <Grid Height="40" Visibility="Hidden">
                             <Image
                               Margin="5,0,0,0"
                               HorizontalAlignment="Left"
                               Width="30"
                               Height="30"
-                              Source="Resources/StandartImage.png">
+                              Source="Resources/StandartProfile.png">
                             </Image>
                             <Grid Margin="40,0,0,0">
                                 <Label
@@ -76,7 +76,7 @@
                     HorizontalAlignment="Left"
                     Width="30"
                     Height="30"
-                    Source="Resources/StandartImage.png">
+                    Source="Resources/StandartProfile.png">
                 </Image>
                 <Grid Margin="40,0,0,0" 
                       MouseDown="Profile_MouseDown">

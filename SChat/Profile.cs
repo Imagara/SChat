@@ -10,7 +10,6 @@ namespace SChat
     {
         public static int userId { get; set; }
         public static string nickName { get; set; }
-        public static string imgSource { get; set; }
         public static int openedChat { get; set; }
     }
 }

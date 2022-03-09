@@ -52,7 +52,7 @@ namespace SChat
             LoadingMessages();
             scroll.ScrollToEnd();
         }
-        private void SendMessage(string nickName, string message, string date, string imageSource)
+        private void SendMessage(string nickName, string message, string date, BitmapImage imageSource)
         {
             Grid messageGrid = new Grid();
             messageGrid.Background = Brushes.White;
@@ -62,7 +62,7 @@ namespace SChat
             messageGrid.Margin = new Thickness(10, 5, 10, 5);
 
             Image messageImage = new Image();
-            messageImage.Source = new BitmapImage(new Uri(imageSource));
+            messageImage.Source = imageSource;
             messageImage.Width = 35;
             messageImage.Height = 35;
             messageImage.Margin = new Thickness(5);
@@ -106,11 +106,21 @@ namespace SChat
             MessageListBox.Items.Clear();
             foreach (Message msg in cnt.db.Message.Where(chat => chat.IdChat == Profile.openedChat).OrderByDescending(id => id.IdMessage).Take(25).OrderBy(id => id.IdMessage).ToList())
             {
-                string author = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.NickName).FirstOrDefault();
+                //переделать
+                int idAuthor = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(userr => userr.User.Id).FirstOrDefault();
+                string author = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(userr => userr.User.NickName).FirstOrDefault();
                 string content = msg.Content;
                 DateTime dt = msg.Date;
-                //string imgSource = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.ProfileImgSource).FirstOrDefault();
-                //SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
+
+                User user = cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault();
+
+                BitmapImage imgSource;// = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(user => user.User.ProfileImgSource).FirstOrDefault();
+                if (cnt.db.User.Where(item => item.Id == idAuthor).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
+                    imgSource = new BitmapImage(new Uri("pack://application:,,,/AssemblyName;component/Resources/StandartImage.png"));
+                else
+                    imgSource = ImagesManip.NewImage(user);
+
+                SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
             }
             scroll.ScrollToEnd();
         }

@@ -10,14 +10,15 @@ namespace SChat
 {
     public partial class MainWindow : Window
     {
+        User user = cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault();
         public MainWindow()
         {
             InitializeComponent();
             ProfileName.Content = Profile.nickName;
-
-            if(cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
-            ProfileImage.Source = new BitmapImage(new Uri(Profile.imgSource));
-
+            if (cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
+                ProfileImage.Source = new BitmapImage(new Uri("pack://application:,,,/AssemblyName;component/Resources/StandartImage.png"));
+            else
+                ProfileImage.Source = ImagesManip.NewImage(user);
             LoadingChat();
         }
         
@@ -25,7 +26,7 @@ namespace SChat
         {
             //
         }
-        private void AddNewChat(string chatNameS, string chatLastMessageS,string chatImgSource)
+        private void AddNewChat(string chatNameS, string chatLastMessageS,BitmapImage chatImgSource)
         {
             Grid chatGrid = new Grid();
             chatGrid.Height = 40;
@@ -36,7 +37,7 @@ namespace SChat
             chatImg.HorizontalAlignment = HorizontalAlignment.Left;
             chatImg.Width = 30;
             chatImg.Height = 30;
-            chatImg.Source = new BitmapImage(new Uri(chatImgSource));
+            chatImg.Source = chatImgSource;
             chatGrid.Children.Add(chatImg);
 
             Grid textGrid = new Grid();
@@ -80,8 +81,13 @@ namespace SChat
             {
                 string chatName = cnt.db.Chat.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.Name).FirstOrDefault();
                 string chatLastMessage = cnt.db.Message.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.Content).FirstOrDefault();
-                //string chatImgSource = cnt.db.Chat.Where(chat => chat.IdChat == cht.IdChat).Select(chat => chat.ImgSource).FirstOrDefault();
-                //AddNewChat(chatName, chatLastMessage, chatImgSource);
+                BitmapImage chatImgSource; // сделать img чата
+                if (cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
+                    chatImgSource = new BitmapImage(new Uri("pack://application:,,,/AssemblyName;component/Resources/StandartImage.png"));
+                else
+                    chatImgSource = ImagesManip.NewImage(user);
+
+                AddNewChat(chatName, chatLastMessage, chatImgSource);
             }
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)

@@ -67,6 +67,9 @@
     <Compile Include="Chat.cs">
       <DependentUpon>EDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="ChatSettingsPage.xaml.cs">
+      <DependentUpon>ChatSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="cnt.cs" />
     <Compile Include="EDM.Context.cs">
       <AutoGen>True</AutoGen>
@@ -109,6 +112,10 @@
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
     <Page Include="ChatPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChatSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,10 +202,11 @@
       <DependentUpon>EDM.edmx</DependentUpon>
       <LastGenOutput>EDM.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\StandartProfile.png" />
+    <Resource Include="Resources\Add.png" />
     <Resource Include="Resources\Logout.png" />
     <Resource Include="Resources\StandartChat.png" />
     <Resource Include="Resources\Setting.png" />
-    <Resource Include="Resources\StandartProfile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

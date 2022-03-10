@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Threading;
 
 namespace SChat
 {
@@ -21,20 +22,78 @@ namespace SChat
             LoadingChat();
             MainFrame.Content = new WelcomePage();
         }
-        
         private void AddNewChat(object sender, RoutedEventArgs e)
         {
-            //
+            AddNewChatButton.Visibility = Visibility.Collapsed;
+            AddNewStackPanel.Visibility = Visibility.Visible;
         }
-        private void AddNewChat(string chatNameS, string chatLastMessageS,BitmapImage chatImgSource)
+        private void AddNewChatClose(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("new chat added.");
+            AddNewChatButton.Visibility = Visibility.Visible;
+            AddNewStackPanel.Visibility = Visibility.Collapsed;
+            if(ChatAddNameOfChat.Text.Trim() != "" && ChatAddNameOfChat.Text.Length < 50)
+            {
+                //if(cnt.db.UserChat.Select().Contains().FirstOrDefault();
+                //else
+                if(Functions.IsChatAlreadyCreated(ChatAddNameOfChat.Text))
+                {
+                    try
+                    {
+                        UserChat newUserChat = new UserChat()
+                        {
+                            Id = cnt.db.UserChat.Select(p => p.Id).DefaultIfEmpty(0).Max() + 1,
+                            IdChat = Functions.GetIdChat(ChatAddNameOfChat.Text),
+                            IdUser = Profile.userId
+                        };
+                        cnt.db.UserChat.Add(newUserChat);
+                        cnt.db.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка вступления в уже существующий чат: " + ex);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        int newChatId = cnt.db.Chat.Select(p => p.IdChat).DefaultIfEmpty(0).Max() + 1;
+                        Chat newChat = new Chat()
+                        {
+                            IdChat = newChatId,
+                            Name = ChatAddNameOfChat.Text,
+                        };
+                        cnt.db.Chat.Add(newChat);
+                        cnt.db.SaveChanges();
+
+
+                        UserChat newUserChat = new UserChat()
+                        {
+                            Id = cnt.db.UserChat.Select(p => p.Id).DefaultIfEmpty(0).Max() + 1,
+                            IdChat = newChatId,
+                            IdUser = Profile.userId
+                        };
+                        cnt.db.UserChat.Add(newUserChat);
+                        cnt.db.SaveChanges();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка создания чата: " + ex);
+                    }
+                }
+            LoadingChat();
+            }    
+            ChatAddNameOfChat.Text = "";
+        }
+        private void AddNewChat(string chatNameS, string chatLastMessageS, BitmapImage chatImgSource)
+        {
             Grid chatGrid = new Grid();
             chatGrid.Height = 40;
             chatGrid.Margin = new Thickness(0, 2, 0, 2);
 
             Image chatImg = new Image();
-            chatImg.Margin = new Thickness(5,0,0,0);
+            chatImg.Margin = new Thickness(5, 0, 0, 0);
             chatImg.HorizontalAlignment = HorizontalAlignment.Left;
             chatImg.Width = 30;
             chatImg.Height = 30;
@@ -73,7 +132,6 @@ namespace SChat
         }
         public void LoadingChat()
         {
-            MessageBox.Show("Updating...");
             ChatListBox.Items.Clear();
             foreach (UserChat cht in cnt.db.UserChat.Where(chat => chat.IdUser == Profile.userId).ToList())
             {
@@ -81,7 +139,6 @@ namespace SChat
                 {
                     string chatName = cnt.db.Chat.Where(chatt => chatt.IdChat == cht.IdChat).Select(chatt => chatt.Name).FirstOrDefault();
                     string chatLastMessage = cnt.db.Message.Where(chatt => chatt.IdChat == cht.IdChat).OrderByDescending(order => order.IdMessage).Select(chatt => chatt.Content).FirstOrDefault();
-                    MessageBox.Show("LAST: " + chatLastMessage);
                     if (chatLastMessage != null && chatLastMessage.Length > 10)
                         chatLastMessage = chatLastMessage.Substring(0, 10) + "...";
                     BitmapImage chatImgSource;
@@ -98,7 +155,6 @@ namespace SChat
                     MessageBox.Show(ex.ToString());
                 }
             }
-            MessageBox.Show("Updated.");
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)
         {

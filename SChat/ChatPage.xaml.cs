@@ -18,7 +18,6 @@ namespace SChat
         }
         private void SendMessageButton(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Метод вызван");
             if (MsgBox.Text.Trim() != "")
             {
                 int messageId = cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max() + 1;
@@ -33,7 +32,7 @@ namespace SChat
                 };
                 cnt.db.Message.Add(newMessage);
                 cnt.db.SaveChanges();
-                MainWindow mw = new MainWindow();
+                //MainWindow mw = new MainWindow();
                 MsgBox.Text = "";
             }
             LoadingMessages();
@@ -93,7 +92,7 @@ namespace SChat
                 User user = cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault();
                 BitmapImage imgSource;
                 if (cnt.db.User.Where(item => item.Id == idAuthor).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
-                    imgSource = new BitmapImage(new Uri("pack://application:,,,/AssemblyName;component/Resources/StandartImage.png"));
+                    imgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png",UriKind.RelativeOrAbsolute));
                 else
                     imgSource = ImagesManip.NewImage(user);
 
@@ -108,7 +107,18 @@ namespace SChat
         }
         private void ChatLeave_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                cnt.db.UserChat.Remove(cnt.db.UserChat.Where(item => item.IdUser == Profile.userId && item.IdChat == Profile.openedChat).FirstOrDefault());
+                cnt.db.SaveChanges();
+                //MainWindow mw = new MainWindow();
+                //mw.MainFrame.Content = new WelcomePage();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
     }
 }

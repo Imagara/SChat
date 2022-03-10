@@ -23,6 +23,10 @@ namespace SChat
         public ProfilePage()
         {
             InitializeComponent();
+            User user = cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault();
+            EmailBox.Content = user.Email;
+            BirthdayBox.Content = user.Birthday.ToString();
+            PhoneBox.Text = user.PhoneNumber;
             if (cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
                 ProfileImage.Source = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
             else
@@ -39,8 +43,8 @@ namespace SChat
             BitmapImage image = new BitmapImage();
             image = ImagesManip.SelectImage();
             ProfileImage.Source = image;
-            MainWindow mw = new MainWindow();
-            mw.ProfileImage.Source = image;
+            //MainWindow mw = new MainWindow();
+            //mw.ProfileImage.Source = image;
             User user = cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault();
             if(ProfileImage.Source != null)
             user.ProfileImgSource = ImagesManip.BitmapSourceToByteArray((BitmapSource)ProfileImage.Source);

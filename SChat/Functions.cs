@@ -69,6 +69,16 @@ namespace SChat
         {
             return cnt.db.User.Select(item => item.NickName).Contains(login);
         }
+        // Проверка на наличие чата
+        public static bool IsChatAlreadyCreated(string chatName)
+        {
+            return cnt.db.Chat.Select(item => item.Name).Contains(chatName);
+        }
+        // Получение id чата по его названию
+        public static int GetIdChat(string chatName)
+        {
+            return cnt.db.Chat.Where(item => item.Name == chatName).Select(item => item.IdChat).FirstOrDefault();
+        }
         //// Проверка на уникальность номера телефона
         //public static bool IsPhoneNumberAlreadyTaken(string PhoneNum)
         //{

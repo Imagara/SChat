@@ -37,14 +37,12 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <ScrollViewer Name="scroll"
-                          VerticalScrollBarVisibility="Visible">
-                <ListBox Name="MessageListBox" 
-                         HorizontalAlignment="Center"
-                         Background="LightGray"
-                         Width="617">
-                </ListBox>
-            </ScrollViewer>
+            <ListBox Name="MessageListBox" 
+                     Background="LightGray">
+                <ScrollViewer Name="scroll"
+                              VerticalScrollBarVisibility="Hidden">
+                </ScrollViewer>
+            </ListBox>
         </Grid>
 
         <Grid Grid.Row="2" 

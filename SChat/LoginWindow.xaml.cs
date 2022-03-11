@@ -32,16 +32,14 @@ namespace SChat
             try
             {
                 if (!Functions.IsValidLogAndPass(LogBox.Text, PassBox.Password))
-                    MessageBox.Show("Поля не могут быть пустыми");
+                    new ErrorWindow("Поля не могут быть пустыми").Show();
                 else if (!Functions.LoginCheck(LogBox.Text, PassBox.Password))
-                    MessageBox.Show("Неверный логин или пароль");
+                    new ErrorWindow("Неверный логин или пароль").Show();
                 else
                 {
                     Profile.userId = cnt.db.User.Where(item => item.NickName == LogBox.Text).Select(item => item.Id).FirstOrDefault();
-                    //Profile.imgSource = cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault();
                     Profile.nickName = cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.NickName).FirstOrDefault();
-                    MainWindow mw = new MainWindow();
-                    mw.Show();
+                    new MainWindow().Show();
                     this.Close();
                 }
             }
@@ -54,9 +52,34 @@ namespace SChat
         }
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
-            RegisterWindow rw = new RegisterWindow();
-            rw.Show();
+            new RegisterWindow().Show();
             this.Close();
         }
+
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+        }
+
+        private void ButtonMininize_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        private void WindowStateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            else
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
     }
 }

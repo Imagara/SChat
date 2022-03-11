@@ -87,6 +87,9 @@
       <DependentUpon>EDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="Encrypt.cs" />
+    <Compile Include="ErrorWindow.xaml.cs">
+      <DependentUpon>ErrorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Functions.cs" />
     <Compile Include="ImagesManip.cs" />
     <Compile Include="LoginWindow.xaml.cs">
@@ -120,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ChatSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ErrorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

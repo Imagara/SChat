@@ -35,7 +35,7 @@ namespace SChat
             {
                 if(cnt.db.UserChat.Select(item => item.Chat.Name).Contains(ChatAddNameOfChat.Text))
                 {
-                    MessageBox.Show("Вы уже состоите в этом чате.");
+                    new ErrorWindow("Вы уже состоите в этом чате.").Show();
                 }
                 else if(Functions.IsChatAlreadyCreated(ChatAddNameOfChat.Text))
                 {
@@ -52,7 +52,7 @@ namespace SChat
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Ошибка вступления в уже существующий чат: " + ex);
+                        new ErrorWindow("Ошибка вступления в уже существующий чат: " + ex).Show();
                     }
                 }
                 else
@@ -81,7 +81,7 @@ namespace SChat
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Ошибка создания чата: " + ex);
+                        new ErrorWindow("Ошибка создания чата: " + ex).ShowDialog();
                     }
                 }
             LoadingChat();
@@ -156,7 +156,7 @@ namespace SChat
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    new ErrorWindow(ex.ToString()).ShowDialog();
                 }
             }
         }
@@ -169,13 +169,6 @@ namespace SChat
         {
             MainFrame.Content = new ProfilePage();
         }
-        private void TempExit(object sender, RoutedEventArgs e)
-        {
-            LoginWindow lw = new LoginWindow();
-            lw.Show();
-            this.Close();
-        }
-
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)

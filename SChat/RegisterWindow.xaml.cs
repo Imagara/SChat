@@ -15,15 +15,15 @@ namespace SChat
             try
             {
                 if (!Functions.IsValidLogAndPass(NickNameBox.Text, PassBox.Password))
-                    MessageBox.Show("Поля не могут быть пустыми.");
-                if (!Functions.IsValidLogAndPassRegister(NickNameBox.Text, PassBox.Password))
-                    MessageBox.Show("Поля «Логин» и «Пароль» должны содержать не менее 5 символов. Поля «Логин» и «Пароль» не должны быть равны");
+                    new ErrorWindow("Поля не могут быть пустыми.").Show();
+                else if (!Functions.IsValidLogAndPassRegister(NickNameBox.Text, PassBox.Password))
+                    new ErrorWindow("Поля «Логин» и «Пароль» должны содержать не менее 5 символов. Поля «Логин» и «Пароль» не должны быть равны").Show();
                 else if (Functions.IsLoginAlreadyTaken(NickNameBox.Text))
-                    MessageBox.Show("Данный логин уже занят");
+                    new ErrorWindow("Данный логин уже занят").Show();
                 else if (!Functions.IsValidEmail(EmailBox.Text))
-                    MessageBox.Show("Email введен неверно.");
+                    new ErrorWindow("Email введен неверно.").Show();
                 else if (Functions.IsEmailAlreadyTaken(EmailBox.Text))
-                    MessageBox.Show("Данный email уже используется.");
+                    new ErrorWindow("Данный email уже используется.").Show();
                 else
                 {
                     User newUser = new User()
@@ -34,16 +34,15 @@ namespace SChat
                         Email = EmailBox.Text
                     };
                     cnt.db.User.Add(newUser);
-                    cnt.db.SaveChanges();
-                    MessageBox.Show("Успешная регистрация");
-                    LoginWindow lw = new LoginWindow();
-                    lw.Show();
+                    cnt.db.SaveChanges();;
+
+                    new LoginWindow().Show();
                     this.Close();
                 }
             }
             catch
             {
-                MessageBox.Show("Ошибка.");
+                new ErrorWindow("Ошибка.").ShowDialog();
             }
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)

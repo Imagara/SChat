@@ -41,7 +41,6 @@ namespace SChat
         {
             Grid messageGrid = new Grid();
             messageGrid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x40, 0x44, 0x4B));
-            messageGrid.HorizontalAlignment = HorizontalAlignment.Left;
             messageGrid.Height = 45;
             messageGrid.Width = 580;
             messageGrid.Margin = new Thickness(10, 5, 10, 5);

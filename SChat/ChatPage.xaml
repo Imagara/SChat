@@ -42,7 +42,7 @@
                      Background="#32353B"
                      BorderBrush="#32353B">
                 <ScrollViewer Name="scroll"
-                              VerticalScrollBarVisibility="Hidden">
+                              VerticalScrollBarVisibility="Visible">
                 </ScrollViewer>
             </ListBox>
         </Grid>
@@ -61,7 +61,8 @@
                 BorderBrush="#00000000"
                 Text=""
                 Margin="7,0,7,0"
-                FontSize="20">
+                FontSize="20"
+                IsTabStop="False">
                 </TextBox>
                 <Button HorizontalAlignment="Right"
                         Click="SendMessageButton"

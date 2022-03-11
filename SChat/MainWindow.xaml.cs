@@ -24,12 +24,10 @@ namespace SChat
         }
         private void AddNewChat(object sender, RoutedEventArgs e)
         {
-            AddNewChatButton.Visibility = Visibility.Collapsed;
             AddNewStackPanel.Visibility = Visibility.Visible;
         }
         private void AddNewChatClose(object sender, RoutedEventArgs e)
         {
-            AddNewChatButton.Visibility = Visibility.Visible;
             AddNewStackPanel.Visibility = Visibility.Collapsed;
             if(ChatAddNameOfChat.Text.Trim() != "" && ChatAddNameOfChat.Text.Length < 50)
             {
@@ -127,11 +125,6 @@ namespace SChat
 
             chatGrid.Children.Add(textGrid);
 
-            //Border chatBorder = new Border();
-            //chatBorder.BorderBrush = Brushes.White;
-            //chatBorder.BorderThickness = new Thickness(1.3);
-            //chatGrid.Children.Add(chatBorder);
-
             ChatListBox.Items.Add(chatGrid);
         }
         public void LoadingChat()
@@ -143,8 +136,10 @@ namespace SChat
                 {
                     string chatName = cnt.db.Chat.Where(chatt => chatt.IdChat == cht.IdChat).Select(chatt => chatt.Name).FirstOrDefault();
                     string chatLastMessage = cnt.db.Message.Where(chatt => chatt.IdChat == cht.IdChat).OrderByDescending(order => order.IdMessage).Select(chatt => chatt.Content).FirstOrDefault();
-                    if (chatLastMessage != null && chatLastMessage.Length > 10)
-                        chatLastMessage = chatLastMessage.Substring(0, 10) + "...";
+                    if (chatLastMessage == "" || chatLastMessage == null)
+                        chatLastMessage = "Чат создан.";
+                    if (chatLastMessage != null && chatLastMessage.Length > 13)
+                        chatLastMessage = chatLastMessage.Substring(0, 13) + "...";
                     BitmapImage chatImgSource;
 
                     if (cnt.db.Chat.Where(item => item.IdChat == cht.IdChat).Select(item => item.ImgSource).FirstOrDefault() == null)
@@ -158,6 +153,33 @@ namespace SChat
                 {
                     new ErrorWindow(ex.ToString()).ShowDialog();
                 }
+            }
+
+            try
+            {
+                Grid addChatGrid = new Grid();
+                addChatGrid.Name = "AddNewChatButton";
+                addChatGrid.Height = 40;
+                addChatGrid.Width = 135;
+                addChatGrid.Margin = new Thickness(0, 2, 0, 2);
+
+                Button addChatButton = new Button();
+                addChatButton.HorizontalAlignment = HorizontalAlignment.Center;
+                addChatButton.VerticalAlignment = VerticalAlignment.Center;
+                addChatButton.Width = 30;
+                addChatButton.Height = 30;
+                addChatButton.Content = "+";
+                addChatButton.FontSize = 16;
+                addChatButton.Click += AddNewChat;
+                addChatButton.FontWeight = FontWeights.Black;
+
+                addChatGrid.Children.Add(addChatButton);
+
+                ChatListBox.Items.Add(addChatGrid);
+            }
+            catch (Exception ex)
+            {
+                new ErrorWindow(ex.ToString()).ShowDialog();
             }
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)

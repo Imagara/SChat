@@ -42,7 +42,7 @@ namespace SChat
             Grid messageGrid = new Grid();
             messageGrid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x40, 0x44, 0x4B));
             messageGrid.Height = 45;
-            messageGrid.Width = 580;
+            messageGrid.Width = 590;
             messageGrid.Margin = new Thickness(10, 5, 10, 5);
 
             Image messageImage = new Image();
@@ -72,8 +72,9 @@ namespace SChat
             stackpanel.Children.Add(dateLabel);
             messageGrid.Children.Add(stackpanel);
 
-            Label messageLabel = new Label();
+            Label messageLabel = new Label(); // TextBlock messageTextBlock = new TextBlock();
             messageLabel.Content = message;
+            //messageTextBlock.TextWrapping = TextWrapping.Wrap;
             messageLabel.Foreground = Brushes.White;
             messageLabel.HorizontalAlignment = HorizontalAlignment.Left;
             messageLabel.VerticalAlignment = VerticalAlignment.Bottom;
@@ -105,7 +106,7 @@ namespace SChat
 
         private void ChatSettings_Click(object sender, RoutedEventArgs e)
         {
-
+            //new MainWindow().MainFrame.Content = new WelcomePage();
         }
         private void ChatLeave_Click(object sender, RoutedEventArgs e)
         {
@@ -118,7 +119,7 @@ namespace SChat
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                new ErrorWindow(ex.ToString()).Show();
             }
             
         }

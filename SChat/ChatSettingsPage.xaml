@@ -9,7 +9,61 @@
       d:DesignWidth="634"
       Title="ChatSettingsPage">
 
-    <Grid Background="AliceBlue">
-        
+    <Grid Background="#32353B">
+        <Grid Background="#2F3136"
+              Grid.RowSpan="2"
+              Margin="40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="241*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" 
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <Image Name="ProfileImage"
+                       Width="80"
+                       Height="80"
+                       Source="Resources/StandartChat.png"
+                       MouseDown="ChangeImageProfile_MouseDown">
+                </Image>
+                <TextBox Name="NickNameLabel"
+                         Text="Name"
+                         Width="auto"
+                         VerticalAlignment="Center"
+                         FontSize="30"
+                         FontWeight="Bold" 
+                         Foreground="{StaticResource TextColor}"
+                         Background="#2F3136" 
+                         BorderBrush="#2F3136">
+                </TextBox>
+            </StackPanel>
+            <ListBox Grid.Row="1"
+                     Name="UsersListBox" 
+                     Margin="20"
+                     Background="#FF44464D"
+                     BorderBrush="#FF44464D"
+                     ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                
+            </ListBox>
+        </Grid>
+
+
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center"
+                    Visibility="Collapsed">
+            <Label Content="Номер телефона"
+                   FontSize="20"/>
+            <TextBox Name="PhoneBox"
+                     Height="30"
+                     FontSize="20"/>
+            <Button Content="Сохранить"
+                    Margin="0,20,0,0"
+                    Height="30"
+                    VerticalAlignment="Bottom">
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>

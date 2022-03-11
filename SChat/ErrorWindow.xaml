@@ -20,7 +20,8 @@
                VerticalAlignment="Top" 
                Height="55" 
                Width="262" 
-               Foreground="White"/>
+               Foreground="White">
+        </TextBlock>
         <Button Content="Закрыть" 
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Center" 

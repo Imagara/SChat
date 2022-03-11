@@ -132,6 +132,19 @@
                                 </Grid>
                             </Grid>
                         </Grid>
+                        <Grid Height="40" Visibility="Visible"
+                              Width="135"
+                              Margin="0,2,0,2">
+                            <Button HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="30"
+                                    Height="30"
+                                    Content="+"
+                                    FontSize="16"
+                                    FontWeight="Black"
+                                    Click="AddNewChat">
+                            </Button>
+                        </Grid>
                     </ListBox>
                     <StackPanel Orientation="Vertical"
                             VerticalAlignment="Bottom">
@@ -139,10 +152,13 @@
                                 Orientation="Horizontal"
                                 Visibility="Collapsed">
                             <TextBox Name="ChatAddNameOfChat"
-                                 FontSize="16"
-                                 Height="30"
-                                 Width="120"
-                                 HorizontalAlignment="Left">
+                                     Background="#323338"
+                                     Foreground="{StaticResource TextColor}"
+                                     BorderBrush="Black"
+                                     FontSize="16"
+                                     Height="30"
+                                     Width="120"
+                                     HorizontalAlignment="Left">
                             </TextBox>
                             <Button Height="30"
                                 Width="30"
@@ -153,13 +169,6 @@
                                 </Image>
                             </Button>
                         </StackPanel>
-                        <Button 
-                            Name="AddNewChatButton"
-                            Visibility="Collapsed"
-                            Content="Добавить новый чат"
-                            Height="30"
-                            Click="AddNewChat">
-                        </Button>
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1">

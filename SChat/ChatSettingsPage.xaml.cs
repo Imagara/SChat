@@ -15,14 +15,16 @@ using System.Windows.Shapes;
 
 namespace SChat
 {
-    /// <summary>
-    /// Логика взаимодействия для ChatSettingsPage.xaml
-    /// </summary>
     public partial class ChatSettingsPage : Page
     {
-        public ChatSettingsPage(int chatId)
+        public ChatSettingsPage()
         {
             InitializeComponent();
+        }
+
+        private void ChangeImageProfile_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

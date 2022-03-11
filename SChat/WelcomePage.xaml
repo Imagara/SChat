@@ -5,10 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SChat"
       mc:Ignorable="d" 
-      Height="421" 
-      Width="634"
+      d:DesignHeight="421"
+      d:DesignWidth="634"
       Title="WelcomePage">
-    <Grid Background="Gray">
+    <Grid Background="#36393F">
         <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
@@ -16,7 +16,8 @@
                    Height="200"
                    Source="Resources/StandartChat.png"/>
             <Label Content="Выберите чат" 
-                   FontSize="30"/>
+                   FontSize="30"
+                   Foreground="White"/>
         </StackPanel>
         
     </Grid>

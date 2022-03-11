@@ -36,14 +36,13 @@ namespace SChat
                 MsgBox.Text = "";
             }
             LoadingMessages();
-            scroll.ScrollToEnd();
         }
         private void SendMessage(string nickName, string message, string date, BitmapImage imageSource)
         {
             Grid messageGrid = new Grid();
-            messageGrid.Background = Brushes.White;
+            messageGrid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x40, 0x44, 0x4B));
             messageGrid.HorizontalAlignment = HorizontalAlignment.Left;
-            messageGrid.Height = 45;//40
+            messageGrid.Height = 45;
             messageGrid.Width = 580;
             messageGrid.Margin = new Thickness(10, 5, 10, 5);
 
@@ -60,6 +59,7 @@ namespace SChat
 
             Label authorLabel = new Label();
             authorLabel.Content = nickName;
+            authorLabel.Foreground = Brushes.White;
             authorLabel.FontWeight = FontWeights.Bold;
             authorLabel.HorizontalAlignment = HorizontalAlignment.Left;
             authorLabel.VerticalAlignment = VerticalAlignment.Top;
@@ -67,6 +67,7 @@ namespace SChat
 
             Label dateLabel = new Label();
             dateLabel.Content = date;
+            dateLabel.Foreground = Brushes.White;
 
             stackpanel.Children.Add(authorLabel);
             stackpanel.Children.Add(dateLabel);
@@ -74,10 +75,12 @@ namespace SChat
 
             Label messageLabel = new Label();
             messageLabel.Content = message;
+            messageLabel.Foreground = Brushes.White;
             messageLabel.HorizontalAlignment = HorizontalAlignment.Left;
             messageLabel.VerticalAlignment = VerticalAlignment.Bottom;
             messageLabel.Margin = new Thickness(40, 0, 0, 0);
             messageGrid.Children.Add(messageLabel);
+
             MessageListBox.Items.Add(messageGrid);
         }
         void LoadingMessages()

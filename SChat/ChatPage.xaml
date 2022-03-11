@@ -5,22 +5,23 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SChat"
       mc:Ignorable="d" 
-      Height="421" 
-      Width="634"
+      d:DesignHeight="421"
+      d:DesignWidth="634"
       Title="ChatPage">
 
-    <Grid Background="Gray">
+    <Grid Background="#32353B">
         <Grid.RowDefinitions>
             <RowDefinition Height="32*"/>
             <RowDefinition Height="342*"/>
             <RowDefinition Height="47*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0"
+              Background="#36393F">
             <StackPanel Orientation="Horizontal">
                 <Label Name="ChatName"
                    Content="CHATNAME" 
-                   Foreground="White"
+                   Foreground="{StaticResource TextColor}"
                    FontSize="14"/>
                 <Button Width="15" 
                         Height="15"
@@ -38,7 +39,8 @@
 
         <Grid Grid.Row="1">
             <ListBox Name="MessageListBox" 
-                     Background="LightGray">
+                     Background="#32353B"
+                     BorderBrush="#32353B">
                 <ScrollViewer Name="scroll"
                               VerticalScrollBarVisibility="Hidden">
                 </ScrollViewer>
@@ -46,22 +48,28 @@
         </Grid>
 
         <Grid Grid.Row="2" 
-            Background="White">
-            <TextBox
+            Background="#32353B">
+            <Grid Margin="10">
+                <Border BorderBrush="#36393F"
+                        Background="#40444B"
+                        BorderThickness="2"
+                        CornerRadius="10">
+                </Border>
+                <TextBox
                 Name="MsgBox"
+                Background="#00000000"
+                BorderBrush="#00000000"
                 Text=""
-                FontSize="20"
-                Margin="0,0,50,0">
-            </TextBox>
-
-            <Button Margin="584,0,0,0"
-                    Click="SendMessageButton"
-                    IsDefault="True">
-                <Image Source="Resources/MessageSend.png"></Image>
-            </Button>
-            
-            
+                Margin="7,0,7,0"
+                FontSize="20">
+                </TextBox>
+                <Button HorizontalAlignment="Right"
+                        Click="SendMessageButton"
+                        IsDefault="True"
+                        Margin="3">
+                    <Image Source="Resources/MessageSend.png"></Image>
+                </Button>
+            </Grid>
         </Grid>
-
     </Grid>
 </Page>

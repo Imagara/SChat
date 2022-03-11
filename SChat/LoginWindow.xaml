@@ -11,24 +11,27 @@
         Height="350" 
         Width="600"
         Title="Окно входа">
-    <Grid Background="Gray">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="99"/>
-        </Grid.RowDefinitions>
-        <StackPanel
+    <Grid Background="#32353B">
+        <Grid Margin="30,20,30,20"
+              Background="#2F3136">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="208*"/>
+                <RowDefinition Height="73*"/>
+            </Grid.RowDefinitions>
+            <StackPanel
             Grid.Row="0"
             Orientation="Vertical"
             VerticalAlignment="Center"
-            HorizontalAlignment="Center">
-            <Label 
+            HorizontalAlignment="Center" Margin="147,40,147,8" Height="160" Width="240">
+                <Label 
             Content="Логин:" 
+            Foreground="{StaticResource TextColor}"
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
             Height="40" 
             Width="240"
             FontSize="20"/>
-            <TextBox 
+                <TextBox 
             Name="LogBox" 
             HorizontalAlignment="Left" 
             TextWrapping="Wrap" 
@@ -36,27 +39,27 @@
             Height="40" 
             Width="240"
             FontSize="20"/>
-            <Label 
-            Content="Пароль:" 
+                <Label 
+            Content="Пароль:"
+            Foreground="{StaticResource TextColor}"
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
             Height="40" 
             Width="240"
             FontSize="20"/>
-            <PasswordBox 
+                <PasswordBox 
             Name="PassBox" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
             Height="40" 
             Width="240"
             FontSize="20"/>
-        </StackPanel>
-        <StackPanel
-            Orientation="Horizontal"
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <Button 
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <Button 
             x:Name="RegButton" 
             Content="Регистрация"
             Height="40" 
@@ -64,13 +67,16 @@
             Margin="0,0,30,0"
             FontSize="20"
             Click="RegButton_Click"/>
-            <Button 
+                <Button 
             x:Name="LogButton" 
             Content="Вход"
             Height="40" 
             Width="150"
             FontSize="20"
-            Click="LogButton_Click"/>
-        </StackPanel>
+            Click="LogButton_Click">
+                </Button>
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </Window>

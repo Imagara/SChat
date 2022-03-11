@@ -108,6 +108,7 @@ namespace SChat
             Label chatName = new Label();
             chatName.Content = chatNameS;
             chatName.FontWeight = FontWeights.Bold;
+            chatName.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
             chatName.HorizontalAlignment = HorizontalAlignment.Left;
             chatName.VerticalAlignment = VerticalAlignment.Top;
             chatName.FontSize = 10;
@@ -117,6 +118,7 @@ namespace SChat
 
             Label chatLastMessage = new Label();
             chatLastMessage.Content = chatLastMessageS;
+            chatLastMessage.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
             chatLastMessage.HorizontalAlignment = HorizontalAlignment.Left;
             chatLastMessage.VerticalAlignment = VerticalAlignment.Bottom;
             chatLastMessage.FontSize = 10;
@@ -125,10 +127,10 @@ namespace SChat
 
             chatGrid.Children.Add(textGrid);
 
-            Border chatBorder = new Border();
-            chatBorder.BorderBrush = Brushes.Black;
-            chatBorder.BorderThickness = new Thickness(1.3);
-            chatGrid.Children.Add(chatBorder);
+            //Border chatBorder = new Border();
+            //chatBorder.BorderBrush = Brushes.White;
+            //chatBorder.BorderThickness = new Thickness(1.3);
+            //chatGrid.Children.Add(chatBorder);
 
             ChatListBox.Items.Add(chatGrid);
         }
@@ -172,6 +174,30 @@ namespace SChat
             LoginWindow lw = new LoginWindow();
             lw.Show();
             this.Close();
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+        }
+
+        private void ButtonMininize_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        private void WindowStateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
+                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            else
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

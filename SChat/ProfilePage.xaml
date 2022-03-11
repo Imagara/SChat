@@ -5,13 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SChat"
       mc:Ignorable="d" 
-      Height="421" 
-      Width="634"
+      d:DesignHeight="421"
+      d:DesignWidth="634"
       Title="ChatPage">
 
-    <Grid Background="Gray">
-
-        <Grid Background="DimGray"
+    <Grid Background="#32353B">
+        <Grid Background="#2F3136"
               Grid.RowSpan="2"
               Margin="40">
             <Grid.RowDefinitions>
@@ -44,7 +43,7 @@
                 </StackPanel>
             </StackPanel>
             <Grid Grid.Row="1"
-                  Background="DarkGray"
+                  Background="#FF44464D"
                   Margin="20">
                 <StackPanel>
 

@@ -16,7 +16,7 @@
             <ColumnDefinition Width="150*"/>
             <ColumnDefinition Width="643*"/>
         </Grid.ColumnDefinitions>
-        <Grid Background="Gray" 
+        <Grid Background="#FFFF0000" 
               Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="369*"/>

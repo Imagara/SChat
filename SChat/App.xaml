@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:SChat"
              StartupUri="LoginWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Styles/Style.xaml"/>
     </Application.Resources>
 </Application>

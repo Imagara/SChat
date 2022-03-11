@@ -20,7 +20,7 @@ namespace SChat
     /// </summary>
     public partial class ChatSettingsPage : Page
     {
-        public ChatSettingsPage()
+        public ChatSettingsPage(int chatId)
         {
             InitializeComponent();
         }

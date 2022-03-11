@@ -33,9 +33,11 @@ namespace SChat
             AddNewStackPanel.Visibility = Visibility.Collapsed;
             if(ChatAddNameOfChat.Text.Trim() != "" && ChatAddNameOfChat.Text.Length < 50)
             {
-                //if(cnt.db.UserChat.Select().Contains().FirstOrDefault();
-                //else
-                if(Functions.IsChatAlreadyCreated(ChatAddNameOfChat.Text))
+                if(cnt.db.UserChat.Select(item => item.Chat.Name).Contains(ChatAddNameOfChat.Text))
+                {
+                    MessageBox.Show("Вы уже состоите в этом чате.");
+                }
+                else if(Functions.IsChatAlreadyCreated(ChatAddNameOfChat.Text))
                 {
                     try
                     {

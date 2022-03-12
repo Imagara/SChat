@@ -86,27 +86,32 @@ namespace SChat
             MessageListBox.Items.Clear();
             foreach (Message msg in cnt.db.Message.Where(chat => chat.IdChat == Profile.openedChat).OrderByDescending(id => id.IdMessage).Take(25).OrderBy(id => id.IdMessage).ToList())
             {
-                Message message = cnt.db.Message.Where(item => item.IdMessage == msg.IdMessage).FirstOrDefault();
-                //new ErrorWindow(message.User.Id.ToString()).ShowDialog();
-                int idAuthor = message.User.Id;
-                string author = message.User.NickName;
-                string content = msg.Content;
-                DateTime dt = msg.Date;
-                BitmapImage imgSource;
-                if (cnt.db.User.Where(item => item.Id == idAuthor).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
-                    imgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
-                else
-                    imgSource = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault());
+                try
+                {
+                    Message message = cnt.db.Message.Where(item => item.IdMessage == msg.IdMessage).FirstOrDefault();
+                    int idAuthor = message.User.Id;
+                    string author = message.User.NickName;
+                    string content = msg.Content;
+                    DateTime dt = msg.Date;
+                    BitmapImage imgSource;
+                    if (cnt.db.User.Where(item => item.Id == idAuthor).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
+                        imgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
+                    else
+                        imgSource = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault());
 
-                SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
+                    SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
+                }
+                catch (Exception ex)
+                {
+                    new ErrorWindow(ex.ToString()).ShowDialog();
+                }
             }
             scroll.ScrollToEnd();
         }
 
         private void ChatSettings_Click(object sender, RoutedEventArgs e)
         {
-            ChatSettingsPage csp = new ChatSettingsPage(Profile.openedChat);
-            NavigationService.Navigate(csp);
+            NavigationService.Navigate(new ChatSettingsPage(Profile.openedChat));
         }
         private void ChatLeave_Click(object sender, RoutedEventArgs e)
         {
@@ -119,7 +124,7 @@ namespace SChat
             }
             catch (Exception ex)
             {
-                new ErrorWindow(ex.ToString()).Show();
+                new ErrorWindow(ex.ToString()).ShowDialog();
             }
 
         }

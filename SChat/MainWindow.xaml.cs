@@ -184,6 +184,7 @@ namespace SChat
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)
         {
+            if(Profile.openedChat != Convert.ToInt32(cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).Select(item => item.IdChat).FirstOrDefault()))
             Profile.openedChat = Convert.ToInt32(cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).Select(item => item.IdChat).FirstOrDefault());
             MainFrame.Content = new ChatPage();
         }

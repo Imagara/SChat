@@ -59,6 +59,7 @@
                 Name="MsgBox"
                 Background="#00000000"
                 BorderBrush="#00000000"
+                Foreground="{StaticResource TextColor}"
                 Text=""
                 Margin="7,0,7,0"
                 FontSize="20"

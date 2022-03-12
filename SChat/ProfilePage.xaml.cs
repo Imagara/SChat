@@ -42,13 +42,13 @@ namespace SChat
         {
             BitmapImage image = new BitmapImage();
             image = ImagesManip.SelectImage();
-            ProfileImage.Source = image;
-            //MainWindow mw = new MainWindow();
-            //mw.ProfileImage.Source = image;
-            User user = cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault();
-            if(ProfileImage.Source != null)
-            user.ProfileImgSource = ImagesManip.BitmapSourceToByteArray((BitmapSource)ProfileImage.Source);
-            cnt.db.SaveChanges();
+            if(image != null)
+            {
+                ProfileImage.Source = image;
+                User user = cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault();
+                user.ProfileImgSource = ImagesManip.BitmapSourceToByteArray((BitmapSource)ProfileImage.Source);
+                cnt.db.SaveChanges();
+            }
         }
     }
 }

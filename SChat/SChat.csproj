@@ -221,6 +221,7 @@
       <DependentUpon>EDM.edmx</DependentUpon>
       <LastGenOutput>EDM.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\done-tick.png" />
     <Resource Include="Resources\StandartProfile.png" />
     <Resource Include="Resources\Add.png" />
     <Resource Include="Resources\Logout.png" />

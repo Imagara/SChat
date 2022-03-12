@@ -29,13 +29,13 @@ namespace SChat
         private void AddNewChatClose(object sender, RoutedEventArgs e)
         {
             AddNewStackPanel.Visibility = Visibility.Collapsed;
-            if(ChatAddNameOfChat.Text.Trim() != "" && ChatAddNameOfChat.Text.Length < 50)
+            if (ChatAddNameOfChat.Text.Trim() != "" && ChatAddNameOfChat.Text.Length < 50)
             {
-                if(cnt.db.UserChat.Select(item => item.Chat.Name).Contains(ChatAddNameOfChat.Text))
+                if (cnt.db.UserChat.Select(item => item.Chat.Name + item.User.NickName).Contains(ChatAddNameOfChat.Text + Profile.nickName))
                 {
                     new ErrorWindow("Вы уже состоите в этом чате.").Show();
                 }
-                else if(Functions.IsChatAlreadyCreated(ChatAddNameOfChat.Text))
+                else if (Functions.IsChatAlreadyCreated(ChatAddNameOfChat.Text))
                 {
                     try
                     {
@@ -82,8 +82,8 @@ namespace SChat
                         new ErrorWindow("Ошибка создания чата: " + ex).ShowDialog();
                     }
                 }
-            LoadingChat();
-            }    
+                LoadingChat();
+            }
             ChatAddNameOfChat.Text = "";
         }
         private void AddNewChat(string chatNameS, string chatLastMessageS, BitmapImage chatImgSource)

@@ -22,13 +22,13 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                <Image Name="ProfileImage"
+                <Image Name="ChatImage"
                        Width="80"
                        Height="80"
                        Source="Resources/StandartChat.png"
                        MouseDown="ChangeImageProfile_MouseDown">
                 </Image>
-                <TextBox Name="NickNameLabel"
+                <TextBox Name="ChatNameLabel"
                          Text="Name"
                          Width="auto"
                          VerticalAlignment="Center"
@@ -45,25 +45,31 @@
                      Background="#FF44464D"
                      BorderBrush="#FF44464D"
                      ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                
+                <Grid Height="50">
+                    <Image HorizontalAlignment="Left"
+                           Source="Resources/StandartProfile.png"
+                           Width="40"
+                           Height="40"
+                           Margin="5">
+
+                    </Image>
+                    <StackPanel Orientation="Vertical"
+                                Margin="50,0,0,0">
+                        <Label Name="UserNameLabel"
+                               VerticalAlignment="Top"
+                               Content="Name"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource TextColor}">
+                        </Label>
+                        <Label Name="StatusLabel"
+                               VerticalAlignment="Bottom"
+                               Content="Status"
+                               Foreground="{StaticResource TextColor}">
+                            
+                        </Label>
+                    </StackPanel>
+                </Grid>
             </ListBox>
         </Grid>
-
-
-        <StackPanel Grid.Row="1"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Center"
-                    Visibility="Collapsed">
-            <Label Content="Номер телефона"
-                   FontSize="20"/>
-            <TextBox Name="PhoneBox"
-                     Height="30"
-                     FontSize="20"/>
-            <Button Content="Сохранить"
-                    Margin="0,20,0,0"
-                    Height="30"
-                    VerticalAlignment="Bottom">
-            </Button>
-        </StackPanel>
     </Grid>
 </Page>

@@ -20,11 +20,9 @@ namespace SChat
         {
             if (MsgBox.Text.Trim() != "")
             {
-                int messageId = cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max() + 1;
-
                 Message newMessage = new Message()
                 {
-                    IdMessage = messageId,
+                    IdMessage = cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max() + 1,
                     IdUser = Profile.userId,
                     IdChat = Profile.openedChat,
                     Content = MsgBox.Text,
@@ -88,16 +86,17 @@ namespace SChat
             MessageListBox.Items.Clear();
             foreach (Message msg in cnt.db.Message.Where(chat => chat.IdChat == Profile.openedChat).OrderByDescending(id => id.IdMessage).Take(25).OrderBy(id => id.IdMessage).ToList())
             {
-                int idAuthor = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(userr => userr.User.Id).FirstOrDefault();
-                string author = cnt.db.Message.Where(message => message.IdMessage == msg.IdMessage).Select(userr => userr.User.NickName).FirstOrDefault();
+                Message message = cnt.db.Message.Where(item => item.IdMessage == msg.IdMessage).FirstOrDefault();
+                //new ErrorWindow(message.User.Id.ToString()).ShowDialog();
+                int idAuthor = message.User.Id;
+                string author = message.User.NickName;
                 string content = msg.Content;
                 DateTime dt = msg.Date;
-                User user = cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault();
                 BitmapImage imgSource;
                 if (cnt.db.User.Where(item => item.Id == idAuthor).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
-                    imgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png",UriKind.RelativeOrAbsolute));
+                    imgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
                 else
-                    imgSource = ImagesManip.NewImage(user);
+                    imgSource = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault());
 
                 SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
             }
@@ -106,7 +105,8 @@ namespace SChat
 
         private void ChatSettings_Click(object sender, RoutedEventArgs e)
         {
-            //new MainWindow().MainFrame.Content = new WelcomePage();
+            ChatSettingsPage csp = new ChatSettingsPage(Profile.openedChat);
+            NavigationService.Navigate(csp);
         }
         private void ChatLeave_Click(object sender, RoutedEventArgs e)
         {
@@ -114,14 +114,14 @@ namespace SChat
             {
                 cnt.db.UserChat.Remove(cnt.db.UserChat.Where(item => item.IdUser == Profile.userId && item.IdChat == Profile.openedChat).FirstOrDefault());
                 cnt.db.SaveChanges();
-                //MainWindow mw = new MainWindow();
-                //mw.MainFrame.Content = new WelcomePage();
+                WelcomePage wp = new WelcomePage();
+                NavigationService.Navigate(wp);
             }
             catch (Exception ex)
             {
                 new ErrorWindow(ex.ToString()).Show();
             }
-            
+
         }
     }
 }

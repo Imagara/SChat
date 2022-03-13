@@ -28,7 +28,7 @@
                        Source="Resources/StandartChat.png"
                        MouseDown="ChangeImageChat_MouseDown">
                 </Image>
-                <TextBox Name="ChatNameLabel"
+                <TextBox Name="ChatNameBox"
                          Text="Name"
                          Width="auto"
                          VerticalAlignment="Center"
@@ -38,6 +38,11 @@
                          Background="#2F3136" 
                          BorderBrush="#2F3136">
                 </TextBox>
+                <Button Width="50"
+                        Height="50"
+                        Click="SaveChatInfo_Click">
+                    <Image Margin="5" Source="Resources/check.png"></Image>
+                </Button>
             </StackPanel>
             <ListBox Grid.Row="1"
                      Name="UsersListBox" 

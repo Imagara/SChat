@@ -120,13 +120,13 @@
             Margin="0,0,30,0"
             FontSize="20"
             Click="RegButton_Click"/>
-                    <Button 
-            x:Name="LogButton" 
-            Content="Вход"
-            Height="40" 
-            Width="150"
-            FontSize="20"
-            Click="LogButton_Click">
+                    <Button x:Name="LogButton" 
+                            Content="Вход"
+                            Height="40" 
+                            Width="150"
+                            FontSize="20"
+                            IsDefault="True"
+                            Click="LogButton_Click">
                     </Button>
                 </StackPanel>
             </Grid>

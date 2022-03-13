@@ -29,18 +29,29 @@
                        MouseDown="ChangeImageProfile_MouseDown">
                 </Image>
                 <StackPanel Orientation="Vertical"
-                            Width="100"
+                            Width="auto"
                             VerticalAlignment="Center">
-                    <Label Name="NickNameLabel"
-                           Content="Name"
-                           FontWeight="Bold" 
-                           Foreground="White" >
-                    </Label>
-                    <Label Name="StatusLabel"
-                           Content="Status" 
-                           Foreground="White">
-                    </Label>
+                    <TextBox Name="NickNameBox"
+                             Text="Name"
+                             FontWeight="Bold" 
+                             Foreground="{StaticResource TextColor}" 
+                             BorderBrush="{x:Null}"
+                             SelectionBrush="{x:Null}"
+                             Background="{x:Null}">
+                    </TextBox>
+                    <TextBox Name="StatusBox"
+                             Text="Status" 
+                             Foreground="{StaticResource TextColor}" 
+                             BorderBrush="{x:Null}"
+                             SelectionBrush="{x:Null}"
+                             Background="{x:Null}">
+                    </TextBox>
                 </StackPanel>
+                <Button Width="50"
+                        Height="50"
+                        Click="SaveProfileInfo_Click">
+                    <Image Margin="5" Source="Resources/check.png"></Image>
+                </Button>
             </StackPanel>
             <Grid Grid.Row="1"
                   Background="#FF44464D"
@@ -54,17 +65,21 @@
                         <StackPanel Orientation="Vertical"
                                     Width="420">
                             <Label Content="Электронная почта"
-                               Foreground="Black"/>
-                            <Label x:Name="EmailBox"
-                               Content="mail@mail.com"
-                               Foreground="White"
-                               Margin="0,-8,0,0"
-                               Height="30"/>
+                               Foreground="#FFC9C7C7"/>
+                            <TextBox x:Name="EmailBox"
+                                     Text="mail@mail.com"
+                                     Margin="3,-5,0,0"
+                                     Height="30"
+                                     Foreground="{StaticResource TextColor}" 
+                                     BorderBrush="{x:Null}"
+                                     SelectionBrush="{x:Null}"
+                                     Background="{x:Null}"/>
                         </StackPanel>
                         <Button Width="80"
                             Content="Изменить"
                             Margin="0,18,0,0"
-                            HorizontalAlignment="Right">
+                            HorizontalAlignment="Right"
+                                Click="EmailButton_Click">
                         </Button>
                     </StackPanel>
 
@@ -74,44 +89,52 @@
                             VerticalAlignment="Top"
                             Margin="7">
                         <StackPanel Orientation="Vertical"
-                                Width="420">
+                                    Width="420">
                             <Label Content="Дата рождения"
-                               Foreground="Black"/>
-                            <Label x:Name="BirthdayBox"
-                               Content="13.03.2003"
-                               Foreground="White"
-                               Margin="0,-8,0,0"
-                               Height="30"/>
+                                   Foreground="#FFC9C7C7"/>
+                            <TextBox x:Name="BirthdayBox"
+                               Text="13.03.2003"
+                               Margin="3,-5,0,0"
+                               Height="30"
+                                     Foreground="{StaticResource TextColor}" 
+                             BorderBrush="{x:Null}"
+                             SelectionBrush="{x:Null}"
+                             Background="{x:Null}"/>
                         </StackPanel>
                         <Button Width="80"
                             Content="Изменить"
                             Margin="0,18,0,0"
-                            HorizontalAlignment="Right">
+                            HorizontalAlignment="Right"
+                                Click="DateButton_Click">
                         </Button>
                     </StackPanel>
 
+                    <StackPanel Orientation="Horizontal"
+                            Height="40"
+                            VerticalAlignment="Top"
+                            Margin="7">
+                        <StackPanel Orientation="Vertical"
+                                    Width="420">
+                            <Label Content="Номер телефона"
+                                   Foreground="#FFC9C7C7"/>
+                            <TextBox x:Name="PhoneNumberBox"
+                               Text="7(999)999-99-99"
+                               Margin="3,-5,0,0"
+                               Height="30"
+                                     Foreground="{StaticResource TextColor}" 
+                             BorderBrush="{x:Null}"
+                             SelectionBrush="{x:Null}"
+                             Background="{x:Null}"/>
+                        </StackPanel>
+                        <Button Width="80"
+                            Content="Изменить"
+                            Margin="0,18,0,0"
+                            HorizontalAlignment="Right"
+                                Click="PhoneButton_Click">
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
-                
-                
-
             </Grid>
-
         </Grid>
-
-
-        <StackPanel Grid.Row="1"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Center"
-                    Visibility="Collapsed">
-            <Label Content="Номер телефона"
-                   FontSize="20"/>
-            <TextBox Name="PhoneBox"
-                     Height="30"
-                     FontSize="20"/>
-            <Button Content="Сохранить"
-                    Margin="0,20,0,0"
-                    Height="30"
-                    VerticalAlignment="Bottom" Click="SaveInfoButton_Click"></Button>
-        </StackPanel>
     </Grid>
 </Page>

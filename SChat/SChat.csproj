@@ -106,9 +106,6 @@
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Styles\Style.cs" />
-    <Compile Include="TempPage.xaml.cs">
-      <DependentUpon>TempPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>EDM.tt</DependentUpon>
     </Compile>
@@ -158,10 +155,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Style.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TempPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -221,7 +214,8 @@
       <DependentUpon>EDM.edmx</DependentUpon>
       <LastGenOutput>EDM.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\done-tick.png" />
+    <Resource Include="Resources\Refresh.png" />
+    <Resource Include="Resources\Check.png" />
     <Resource Include="Resources\StandartProfile.png" />
     <Resource Include="Resources\Add.png" />
     <Resource Include="Resources\Logout.png" />

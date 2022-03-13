@@ -43,9 +43,15 @@ namespace SChat
         // Валидация логина и пароля
         public static bool IsValidLogAndPassRegister(string login, string password)
         {
-            if (login.Length < 5 || password.Length < 5)
-                return false;
             if (login == password)
+                return false;
+            else
+                return true;
+        }
+        // Валидация логина и пароля
+        public static bool IsValidLength(string str)
+        {
+            if (str.Length < 5)
                 return false;
             else
                 return true;

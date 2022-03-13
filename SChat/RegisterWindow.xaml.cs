@@ -15,16 +15,18 @@ namespace SChat
         {
             try
             {
-                if (!Functions.IsValidLogAndPass(NickNameBox.Text, PassBox.Password))
-                    new ErrorWindow("Поля не могут быть пустыми.").Show();
-                else if (!Functions.IsValidLogAndPassRegister(NickNameBox.Text, PassBox.Password))
-                    new ErrorWindow("Поля «Логин» и «Пароль» должны содержать не менее 5 символов. Поля «Логин» и «Пароль» не должны быть равны").Show();
-                else if (Functions.IsLoginAlreadyTaken(NickNameBox.Text))
-                    new ErrorWindow("Данный логин уже занят").Show();
-                else if (!Functions.IsValidEmail(EmailBox.Text))
+                if (!Functions.IsValidEmail(EmailBox.Text))
                     new ErrorWindow("Email введен неверно.").Show();
                 else if (Functions.IsEmailAlreadyTaken(EmailBox.Text))
                     new ErrorWindow("Данный email уже используется.").Show();
+                else if (Functions.IsValidLength(NickNameBox.Text.Trim()))
+                    new ErrorWindow("Поле «Логин» должно содержать не менее 5 символов.").Show();
+                else if (Functions.IsValidLength(PassBox.Password.Trim()))
+                    new ErrorWindow("Поле «Пароль» должно содержать не менее 5 символов.").Show();
+                else if (!Functions.IsValidLogAndPassRegister(NickNameBox.Text, PassBox.Password))
+                    new ErrorWindow(" Поля «Логин» и «Пароль» не должны быть равны").Show();
+                else if (Functions.IsLoginAlreadyTaken(NickNameBox.Text))
+                    new ErrorWindow("Данный логин уже занят").Show();
                 else
                 {
                     User newUser = new User()
@@ -32,11 +34,12 @@ namespace SChat
                         Id = cnt.db.User.Select(p => p.Id).DefaultIfEmpty(0).Max() + 1,
                         NickName = NickNameBox.Text,
                         Password = Encrypt.GetHash(PassBox.Password),
-                        Email = EmailBox.Text
+                        Email = EmailBox.Text,
+                        Status = "Hello. I'm new here."
                     };
                     cnt.db.User.Add(newUser);
                     cnt.db.SaveChanges();;
-
+                    new ErrorWindow("Успешная регистрация").ShowDialog();
                     new LoginWindow().Show();
                     this.Close();
                 }

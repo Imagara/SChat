@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -30,7 +29,6 @@ namespace SChat
                 };
                 cnt.db.Message.Add(newMessage);
                 cnt.db.SaveChanges();
-                //MainWindow mw = new MainWindow();
                 MsgBox.Text = "";
             }
             LoadingMessages();
@@ -70,9 +68,8 @@ namespace SChat
             stackpanel.Children.Add(dateLabel);
             messageGrid.Children.Add(stackpanel);
 
-            Label messageLabel = new Label(); // TextBlock messageTextBlock = new TextBlock();
+            Label messageLabel = new Label();
             messageLabel.Content = message;
-            //messageTextBlock.TextWrapping = TextWrapping.Wrap;
             messageLabel.Foreground = Brushes.White;
             messageLabel.HorizontalAlignment = HorizontalAlignment.Left;
             messageLabel.VerticalAlignment = VerticalAlignment.Bottom;

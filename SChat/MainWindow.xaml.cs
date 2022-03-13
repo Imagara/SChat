@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Threading;
 
 namespace SChat
 {
@@ -14,12 +13,7 @@ namespace SChat
         public MainWindow()
         {
             InitializeComponent();
-            ProfileName.Content = Profile.nickName;
-            if (cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
-                ProfileImage.Source = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
-            else
-                ProfileImage.Source = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault());
-            LoadingChat();
+            Update();
             MainFrame.Content = new WelcomePage();
         }
         private void AddNewChat(object sender, RoutedEventArgs e)
@@ -31,10 +25,8 @@ namespace SChat
             AddNewStackPanel.Visibility = Visibility.Collapsed;
             if (ChatAddNameOfChat.Text.Trim() != "" && ChatAddNameOfChat.Text.Length < 50)
             {
-                if (cnt.db.UserChat.Select(item => item.Chat.Name + item.User.NickName).Contains(ChatAddNameOfChat.Text + Profile.nickName))
-                {
+                if (cnt.db.UserChat.Select(item => item.Chat.Name + item.User.NickName).Contains(ChatAddNameOfChat.Text + cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.NickName).FirstOrDefault()))
                     new ErrorWindow("Вы уже состоите в этом чате.").Show();
-                }
                 else if (Functions.IsChatAlreadyCreated(ChatAddNameOfChat.Text))
                 {
                     try
@@ -134,15 +126,15 @@ namespace SChat
             {
                 try
                 {
-                    string chatName = cnt.db.Chat.Where(chatt => chatt.IdChat == cht.IdChat).Select(chatt => chatt.Name).FirstOrDefault();
-                    string chatLastMessage = cnt.db.Message.Where(chatt => chatt.IdChat == cht.IdChat).OrderByDescending(order => order.IdMessage).Select(chatt => chatt.Content).FirstOrDefault();
+                    Chat selChat = cnt.db.Chat.Where(chatt => chatt.IdChat == cht.IdChat).FirstOrDefault();
+                    string chatName = selChat.Name;
+                    string chatLastMessage = cnt.db.Message.Where(item => item.IdChat == cht.IdChat).OrderByDescending(order => order.IdMessage).Select(item => item.Content).FirstOrDefault();
                     if (chatLastMessage == "" || chatLastMessage == null)
                         chatLastMessage = "Чат создан.";
                     if (chatLastMessage != null && chatLastMessage.Length > 13)
                         chatLastMessage = chatLastMessage.Substring(0, 13) + "...";
                     BitmapImage chatImgSource;
-
-                    if (cnt.db.Chat.Where(item => item.IdChat == cht.IdChat).Select(item => item.ImgSource).FirstOrDefault() == null)
+                    if (selChat.ImgSource == null)
                         chatImgSource = new BitmapImage(new Uri("../Resources/StandartChat.png", UriKind.RelativeOrAbsolute));
                     else
                         chatImgSource = ImagesManip.NewImage(cnt.db.Chat.Where(item => item.IdChat == cht.IdChat).FirstOrDefault());
@@ -163,17 +155,29 @@ namespace SChat
                 addChatGrid.Width = 135;
                 addChatGrid.Margin = new Thickness(0, 2, 0, 2);
 
+                StackPanel stackPanel = new StackPanel();
+                stackPanel.Orientation = Orientation.Horizontal;
+                stackPanel.VerticalAlignment = VerticalAlignment.Center;
+                stackPanel.HorizontalAlignment = HorizontalAlignment.Center;
+
                 Button addChatButton = new Button();
-                addChatButton.HorizontalAlignment = HorizontalAlignment.Center;
-                addChatButton.VerticalAlignment = VerticalAlignment.Center;
                 addChatButton.Width = 30;
                 addChatButton.Height = 30;
-                addChatButton.Content = "+";
-                addChatButton.FontSize = 16;
+                addChatButton.Margin = new Thickness(3, 0, 3, 0);
+                addChatButton.Content = new Image { Source = new BitmapImage(new Uri("../Resources/Add.png", UriKind.RelativeOrAbsolute)), Margin = new Thickness(8) };
                 addChatButton.Click += AddNewChat;
-                addChatButton.FontWeight = FontWeights.Black;
 
-                addChatGrid.Children.Add(addChatButton);
+                stackPanel.Children.Add(addChatButton);
+
+                Button updateChatButton = new Button();
+                updateChatButton.Width = 30;
+                updateChatButton.Height = 30;
+                updateChatButton.Margin = new Thickness(3, 0, 3, 0);
+                updateChatButton.Content = new Image { Source = new BitmapImage(new Uri("../Resources/Refresh.png", UriKind.RelativeOrAbsolute)), Margin = new Thickness(5) };
+                updateChatButton.Click += UpdateChat;
+
+                stackPanel.Children.Add(updateChatButton);
+                addChatGrid.Children.Add(stackPanel);
 
                 ChatListBox.Items.Add(addChatGrid);
             }
@@ -184,9 +188,11 @@ namespace SChat
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)
         {
-            if(Profile.openedChat != Convert.ToInt32(cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).Select(item => item.IdChat).FirstOrDefault()))
-            Profile.openedChat = Convert.ToInt32(cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).Select(item => item.IdChat).FirstOrDefault());
-            MainFrame.Content = new ChatPage();
+            if (Profile.openedChat != Convert.ToInt32(cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).Select(item => item.IdChat).FirstOrDefault()))
+            {
+                Profile.openedChat = Convert.ToInt32(cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).Select(item => item.IdChat).FirstOrDefault());
+                MainFrame.Content = new ChatPage();
+            }
         }
         private void Profile_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -214,6 +220,22 @@ namespace SChat
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void UpdateChat(object sender, RoutedEventArgs e)
+        {
+            Update();
+        }
+        private void Update()
+        {
+            User user = cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault();
+            ProfileName.Content = user.NickName;
+            ProfileStatus.Content = user.Status;
+            if (cnt.db.User.Where(item => item.Id == Profile.userId).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
+                ProfileImage.Source = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
+            else
+                ProfileImage.Source = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault());
+            LoadingChat();
         }
     }
 }

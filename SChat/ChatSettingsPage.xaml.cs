@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SChat
 {
@@ -23,17 +16,12 @@ namespace SChat
             InitializeComponent();
             chatId = id;
             Chat chat = cnt.db.Chat.Where(item => item.IdChat == chatId).FirstOrDefault();
-            ChatNameLabel.Text = chat.Name;
+            ChatNameBox.Text = chat.Name;
             if (chat.ImgSource == null)
                 ChatImage.Source = new BitmapImage(new Uri("../Resources/StandartChat.png", UriKind.RelativeOrAbsolute));
             else
                 ChatImage.Source = ImagesManip.NewImage(chat);
             LoadingUsers();
-        }
-
-        private void ChangeImageProfile_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
         }
         private void LoadingUsers()
         {
@@ -49,7 +37,7 @@ namespace SChat
                     BitmapImage userImgSource;
 
                     if (user.ProfileImgSource == null)
-                        userImgSource = new BitmapImage(new Uri("../Resources/StandartChat.png", UriKind.RelativeOrAbsolute));
+                        userImgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
                     else
                         userImgSource = ImagesManip.NewImage(user);
 
@@ -91,9 +79,8 @@ namespace SChat
             stackpanel.Children.Add(authorLabel);
             userGrid.Children.Add(stackpanel);
 
-            Label statusLabel = new Label(); // TextBlock messageTextBlock = new TextBlock();
+            Label statusLabel = new Label();
             statusLabel.Content = userStatus;
-            //messageTextBlock.TextWrapping = TextWrapping.Wrap;
             statusLabel.Foreground = Brushes.White;
             statusLabel.HorizontalAlignment = HorizontalAlignment.Left;
             statusLabel.VerticalAlignment = VerticalAlignment.Bottom;
@@ -113,6 +100,14 @@ namespace SChat
                 chat.ImgSource = ImagesManip.BitmapSourceToByteArray((BitmapSource)ChatImage.Source);
                 cnt.db.SaveChanges();
             }
+        }
+
+        private void SaveChatInfo_Click(object sender, RoutedEventArgs e)
+        {
+            Chat chat = cnt.db.Chat.Where(item => item.IdChat == chatId).FirstOrDefault();
+            if(ChatNameBox.Text.Trim().Length > 0)
+            chat.Name = ChatNameBox.Text;
+            cnt.db.SaveChanges();
         }
     }
 }

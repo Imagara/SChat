@@ -118,7 +118,7 @@
                             <Label Content="Номер телефона"
                                    Foreground="#FFC9C7C7"/>
                             <TextBox x:Name="PhoneNumberBox"
-                               Text="7(999)999-99-99"
+                               Text="8(999)999-99-99"
                                Margin="3,-5,0,0"
                                Height="30"
                                      Foreground="{StaticResource TextColor}" 
@@ -130,7 +130,7 @@
                             Content="Изменить"
                             Margin="0,18,0,0"
                             HorizontalAlignment="Right"
-                                Click="PhoneButton_Click">
+                                Click="PhoneButtonEdit_Click">
                         </Button>
                     </StackPanel>
                 </StackPanel>

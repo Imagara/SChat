@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace SChat
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginWindow.xaml
-    /// </summary>
     public partial class LoginWindow : Window
     {
         public LoginWindow()
@@ -34,10 +31,8 @@ namespace SChat
             }
             catch
             {
-
+                new ErrorWindow("Ошибка входа").ShowDialog();
             }
-            
-
         }
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
@@ -68,6 +63,5 @@ namespace SChat
         {
             Application.Current.Shutdown();
         }
-
     }
 }

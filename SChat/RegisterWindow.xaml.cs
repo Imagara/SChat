@@ -19,11 +19,11 @@ namespace SChat
                     new ErrorWindow("Email введен неверно.").Show();
                 else if (Functions.IsEmailAlreadyTaken(EmailBox.Text))
                     new ErrorWindow("Данный email уже используется.").Show();
-                else if (Functions.IsValidLength(NickNameBox.Text.Trim()))
+                else if (!Functions.IsValidLength(NickNameBox.Text.Trim()))
                     new ErrorWindow("Поле «Логин» должно содержать не менее 5 символов.").Show();
-                else if (Functions.IsValidLength(PassBox.Password.Trim()))
+                else if (!Functions.IsValidLength(PassBox.Password.Trim()))
                     new ErrorWindow("Поле «Пароль» должно содержать не менее 5 символов.").Show();
-                else if (!Functions.IsValidLogAndPassRegister(NickNameBox.Text, PassBox.Password))
+                else if (!Functions.IsLogEqualPass(NickNameBox.Text, PassBox.Password))
                     new ErrorWindow(" Поля «Логин» и «Пароль» не должны быть равны").Show();
                 else if (Functions.IsLoginAlreadyTaken(NickNameBox.Text))
                     new ErrorWindow("Данный логин уже занят").Show();

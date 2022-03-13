@@ -10,20 +10,20 @@ namespace UnitTest
         [TestMethod]
         public void IsValidPhoneNumber()
         {
-            Assert.IsTrue(Functions.IsValidPhoneNumber("9999194949"));
-            Assert.IsTrue(Functions.IsValidPhoneNumber("9994443322"));
-            Assert.IsFalse(Functions.IsValidPhoneNumber("99991949499"));
-            Assert.IsFalse(Functions.IsValidPhoneNumber("999919494"));
+            Assert.IsTrue(Functions.IsValidPhoneNumber("89009205001"));
+            Assert.IsTrue(Functions.IsValidPhoneNumber("89995213322"));
+            Assert.IsFalse(Functions.IsValidPhoneNumber("899995959559"));
+            Assert.IsFalse(Functions.IsValidPhoneNumber("89993"));
             Assert.IsFalse(Functions.IsValidPhoneNumber("My phone number"));
             Assert.IsFalse(Functions.IsValidPhoneNumber(""));
         }
         [TestMethod]
         public void IsValidEmail()
         {
-            Assert.IsTrue(Functions.IsValidEmail("user@gmail.com"));
-            Assert.IsTrue(Functions.IsValidEmail("user@mail.ru"));
-            Assert.IsFalse(Functions.IsValidEmail("usergmail.com"));
-            Assert.IsFalse(Functions.IsValidEmail("usergmailcom"));
+            Assert.IsTrue(Functions.IsValidEmail("Matrix@gmail.com"));
+            Assert.IsTrue(Functions.IsValidEmail("Imagine@mail.ru"));
+            Assert.IsFalse(Functions.IsValidEmail("usermail.com"));
+            Assert.IsFalse(Functions.IsValidEmail("usermailcom"));
             Assert.IsFalse(Functions.IsValidEmail(""));
         }
         [TestMethod]
@@ -36,120 +36,77 @@ namespace UnitTest
         [TestMethod]
         public void LoginTest()
         {
-            string login = "kovalev30";
-            string password = "kovalev333";
+            string login = "Matrix";
+            string password = "meme3";
             Assert.IsTrue(Functions.LoginCheck(login, password));
         }
         [TestMethod]
         public void IsValidLoginAndPassword()
         {
-            Assert.IsTrue(Functions.IsValidLogAndPass("login3", "password33"));
-            Assert.IsTrue(Functions.IsValidLogAndPass("qq", "ww"));
-            Assert.IsTrue(Functions.IsValidLogAndPass("laq", "wwadsw"));
+            Assert.IsTrue(Functions.IsValidLogAndPass("Matrix", "meme3"));
+            Assert.IsTrue(Functions.IsValidLogAndPass("Imagine", "pizza"));
+            Assert.IsTrue(Functions.IsValidLogAndPass("Login???", "p@ssw0rd"));
             Assert.IsFalse(Functions.IsValidLogAndPass("", ""));
             Assert.IsFalse(Functions.IsValidLogAndPass("", "SimplePass"));
             Assert.IsFalse(Functions.IsValidLogAndPass("SimpleLogin", ""));
         }
         [TestMethod]
-        public void IsValidLoginAndPasswordRegister()
-        {
-            Assert.IsTrue(Functions.IsValidLogAndPassRegister("login3", "password33"));
-            Assert.IsFalse(Functions.IsValidLogAndPassRegister("login3", "login3"));
-            Assert.IsFalse(Functions.IsValidLogAndPassRegister("qq", "ww"));
-            Assert.IsFalse(Functions.IsValidLogAndPassRegister("qqvxfc", "ww"));
-
-        }
-        [TestMethod]
         public void IsLoginAlreadyTaken()
         {
-            Assert.IsTrue(Functions.IsLoginAlreadyTaken("kovalev30"));
-            Assert.IsFalse(Functions.IsLoginAlreadyTaken("user23"));
-            Assert.IsFalse(Functions.IsLoginAlreadyTaken("F"));
+            Assert.IsTrue(Functions.IsLoginAlreadyTaken("Matrix"));
+            Assert.IsTrue(Functions.IsLoginAlreadyTaken("Imagine"));
+            Assert.IsFalse(Functions.IsLoginAlreadyTaken("SimpleLogin"));
+            Assert.IsFalse(Functions.IsLoginAlreadyTaken("Login?"));
             Assert.IsFalse(Functions.IsLoginAlreadyTaken(""));
         }
-        [TestMethod]
-        public void GetNameOfTransportUsingId()
-        {
-            int transportId = 1;
-            string expected = "Avtobus";
-            Assert.AreEqual(Functions.GetNameOfTransport(transportId), expected);
-        }
-        [TestMethod]
-        public void GetNumberPlateUsingId()
-        {
-            int transportId = 1;
-            string expected = "а333аа78";
-            Assert.AreEqual(Functions.GetNumberPlate(transportId), expected);
-        }
-        [TestMethod]
-        public void GetRouteNameUsingId()
-        {
-            int routeId = 1;
-            string expected = "Маршрут #1";
-            Assert.AreEqual(Functions.GetRouteName(routeId), expected);
-        }
-        [TestMethod]
-        public void GetNameOfPointUsingId()
-        {
-            int pointId = 1;
-            string expected = "Томская";
-            Assert.AreEqual(Functions.GetNameOfPoint(pointId), expected);
-        }
-        [TestMethod]
-        public void GetLocationOfPointUsingId()
-        {
-            int pointId = 1;
-            string expected = "Томская, 21";
-            Assert.AreEqual(Functions.GetLocationOfPoint(pointId), expected);
-        }
-        [TestMethod]
-        public void IsValidNameAndLocationOfPoint()
-        {
-            string Name = "Томская";
-            string Location = "Томская, 21";
-            Assert.IsTrue(Functions.IsValidNameAndLocationOfPoint(Name, Location));
-        }
-        [TestMethod]
-        public void IsValidInfoAboutDriver()
-        {
-            string IdTransport = "1";
-            string name = "Петр";
-            string surname = "Некрасов";
-            string patronymic = "Антонович";
-            Assert.IsTrue(Functions.IsValidInfoAboutDriver(IdTransport, name, surname, patronymic));
-        }
-        [TestMethod]
-        public void IsOnlyDigits()
-        {
-            string Id = "123";
-            Assert.IsTrue(Functions.IsOnlyDigits(Id));
-        }
+
         [TestMethod]
         public void IsValidDateOfBirthday()
         {
-            DateTime date1 = new DateTime(2000, 05, 02);
-            DateTime date2 = new DateTime(2025, 02, 01);
+            DateTime date1 = new DateTime(1999, 01, 01);
+            DateTime date2 = new DateTime(2025, 12, 31);
             Assert.IsTrue(Functions.IsValidDateOfBirthday(date1));
             Assert.IsFalse(Functions.IsValidDateOfBirthday(date2));
         }
         [TestMethod]
         public void IsPhoneNumberAlreadyTaken()
         {
-            Assert.IsTrue(Functions.IsPhoneNumberAlreadyTaken("9996963350"));
-            Assert.IsFalse(Functions.IsPhoneNumberAlreadyTaken("7776006061"));
-            Assert.IsFalse(Functions.IsPhoneNumberAlreadyTaken("7776006062"));
-            Assert.IsFalse(Functions.IsPhoneNumberAlreadyTaken("7776006063"));
-            Assert.IsFalse(Functions.IsPhoneNumberAlreadyTaken("7776006064"));
-            Assert.IsFalse(Functions.IsPhoneNumberAlreadyTaken("7776006065"));
+            Assert.IsTrue(Functions.IsPhoneNumberAlreadyTaken("8002992921"));
+            Assert.IsFalse(Functions.IsPhoneNumberAlreadyTaken("8002992920"));
+            Assert.IsFalse(Functions.IsPhoneNumberAlreadyTaken("8002992919"));
+            Assert.IsFalse(Functions.IsPhoneNumberAlreadyTaken("2222992950"));
+            Assert.IsFalse(Functions.IsPhoneNumberAlreadyTaken("9992992921"));
+            Assert.IsFalse(Functions.IsPhoneNumberAlreadyTaken("9022992020"));
         }
         [TestMethod]
         public void IsEmailAlreadyTaken()
         {
-            Assert.IsTrue(Functions.IsEmailAlreadyTaken("rud.kovalev@gmail.com"));
-            Assert.IsFalse(Functions.IsEmailAlreadyTaken("filaks@mail.ru"));
-            Assert.IsFalse(Functions.IsEmailAlreadyTaken("cute@gmail.com"));
-            Assert.IsFalse(Functions.IsEmailAlreadyTaken("user@gmail.com"));
-            Assert.IsFalse(Functions.IsEmailAlreadyTaken("simpleEmail@sibmail.com"));
+            Assert.IsTrue(Functions.IsEmailAlreadyTaken("Matrix@gmail.com"));
+            Assert.IsTrue(Functions.IsEmailAlreadyTaken("Imagine@gmail.com"));
+            Assert.IsFalse(Functions.IsEmailAlreadyTaken("user3@mail.ru"));
+            Assert.IsFalse(Functions.IsEmailAlreadyTaken("user42@gmail.com"));
+            Assert.IsFalse(Functions.IsEmailAlreadyTaken("s0mpleEmail@sibmail.com"));
+        }
+        [TestMethod]
+        public void IsLogEqualPass()
+        {
+            Assert.IsFalse(Functions.IsLogEqualPass("Matrix", "Matrix"));
+            Assert.IsTrue(Functions.IsLogEqualPass("Matrix", "meme3"));
+        }
+        [TestMethod]
+        public void IsValidLength()
+        {
+            Assert.IsTrue(Functions.IsValidLength("Matrix"));
+            Assert.IsTrue(Functions.IsValidLength("Matrwerwewe"));
+            Assert.IsFalse(Functions.IsValidLength("Ma"));
+            Assert.IsFalse(Functions.IsValidLength(""));
+        }
+        [TestMethod]
+        public void IsChatAlreadyCreated()
+        {
+            Assert.IsTrue(Functions.IsChatAlreadyCreated("Pizza"));
+            Assert.IsFalse(Functions.IsChatAlreadyCreated("Welcome to the club, buddy"));
+            Assert.IsFalse(Functions.IsChatAlreadyCreated(""));
         }
     }
 }

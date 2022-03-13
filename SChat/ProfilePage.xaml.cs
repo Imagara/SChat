@@ -20,10 +20,13 @@ namespace SChat
             else
                 EmailBox.Text = "Еще не заполнено.";
             if (user.Birthday != null)
-                BirthdayBox.Text = user.Birthday.ToString();
+            {
+                DateTime Birthday = (DateTime)user.Birthday;
+                BirthdayBox.Text = Birthday.ToLongDateString();
+            }
             else
                 BirthdayBox.Text = "Еще не заполнено.";
-            if (user.PhoneNumber != null || user.PhoneNumber.Length != 10)
+            if (user.PhoneNumber != null && user.PhoneNumber.Length != 11)
                 PhoneNumberBox.Text = "+7(" + user.PhoneNumber.Substring(0, 3) + ")" + user.PhoneNumber.Substring(3, 3) + "-" + user.PhoneNumber.Substring(6, 2) + "-" + user.PhoneNumber.Substring(8, 2);
             else
                 PhoneNumberBox.Text = "Еще не заполнено.";
@@ -65,8 +68,16 @@ namespace SChat
         {
             try
             {
-                user.Email = EmailBox.Text;
-                cnt.db.SaveChanges();
+                if (!Functions.IsValidEmail(EmailBox.Text))
+                    new ErrorWindow("Email введен неверно.").Show();
+                else if (Functions.IsEmailAlreadyTaken(EmailBox.Text))
+                    new ErrorWindow("Данный email уже используется.").Show();
+                else
+                {
+                    user.Email = EmailBox.Text;
+                    cnt.db.SaveChanges();
+                    new ErrorWindow("Успешно").ShowDialog();
+                }
             }
             catch
             {
@@ -78,22 +89,39 @@ namespace SChat
         {
             try
             {
-                user.Birthday = Convert.ToDateTime(BirthdayBox.Text);
-                cnt.db.SaveChanges();
+                if (!Functions.IsValidDateOfBirthday(Convert.ToDateTime(BirthdayBox.Text)))
+                    new ErrorWindow("Дата рождения не может быть равна сегодняшней.").Show();
+                else
+                {
+                    user.Birthday = Convert.ToDateTime(BirthdayBox.Text);
+                    cnt.db.SaveChanges();
+                    new ErrorWindow("Успешно").ShowDialog();
+                }
             }
             catch
             {
                 new ErrorWindow("Неверный формат.").ShowDialog();
             }
         }
-        private void PhoneButton_Click(object sender, RoutedEventArgs e)
+        private void PhoneButtonEdit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                user.PhoneNumber = PhoneNumberBox.Text;
-                cnt.db.SaveChanges();
+                if (PhoneNumberBox.Text[0] != '8')
+                    new ErrorWindow("Номер телефона должен начинать с 8").Show();
+                else if (!Functions.IsValidPhoneNumber(PhoneNumberBox.Text))
+                    new ErrorWindow("Номер телефона должен содержать в себе 11 цифр.").Show();
+                else if (Functions.IsPhoneNumberAlreadyTaken(PhoneNumberBox.Text))
+                    new ErrorWindow("Данный номер телефона уже используется.").Show();
+                else
+                {
+                    user.PhoneNumber = PhoneNumberBox.Text.Substring(1, 10);
+                    cnt.db.SaveChanges();
+                    new ErrorWindow("Успешно").ShowDialog();
+                }
+
             }
-            catch
+            catch (Exception ex)
             {
                 new ErrorWindow("Неверный формат.").ShowDialog();
             }

@@ -12,7 +12,7 @@ namespace SChat
             foreach (char c in phoneNumber)
                 if (!char.IsDigit(c))
                     return false;
-            if (phoneNumber.Length != 10)
+            if (phoneNumber.Length != 11)
                 return false;
             return true;
         }
@@ -32,7 +32,7 @@ namespace SChat
             else
                 return true;
         }
-        // Валидация логина и пароля
+        // Валидация логина и пароля при входе
         public static bool IsValidLogAndPass(string login, string password)
         {
             if (login == "" || password == "")
@@ -41,7 +41,7 @@ namespace SChat
                 return true;
         }
         // Валидация логина и пароля
-        public static bool IsValidLogAndPassRegister(string login, string password)
+        public static bool IsLogEqualPass(string login, string password)
         {
             if (login == password)
                 return false;
@@ -56,12 +56,6 @@ namespace SChat
             else
                 return true;
         }
-        //// Получение названия маршрута по его id
-        //public static string GetRouteName(int routeId)
-        //{
-        //    return cnt.db.Routes.Where(item => item.IdRoute == routeId).Select(item => item.Name).FirstOrDefault();
-        //}
-
         // Проверка на правильность введеных данных при входе
         public static bool LoginCheck(string login, string password)
         {
@@ -85,58 +79,15 @@ namespace SChat
         {
             return cnt.db.Chat.Where(item => item.Name == chatName).Select(item => item.IdChat).FirstOrDefault();
         }
-        //// Проверка на уникальность номера телефона
-        //public static bool IsPhoneNumberAlreadyTaken(string PhoneNum)
-        //{
-        //    return cnt.db.User.Select(item => item.PhoneNumber).Contains(PhoneNum);
-        //}
         // Проверка на уникальность электронной почты
         public static bool IsEmailAlreadyTaken(string Email)
         {
-            return cnt.db.User.Select(item => item.NickName).Contains(Email);
+            return cnt.db.User.Select(item => item.Email).Contains(Email);
         }
-        //// Получение названия транспорта по его id 
-        //public static string GetNameOfTransport(int transportId)
-        //{
-        //    return cnt.db.Transport.Where(item => item.IdTransport == transportId).Select(item => item.NameOfTransport).FirstOrDefault();
-        //}
-        //// Получение номерного знака по его id
-        //public static string GetNumberPlate(int transportId)
-        //{
-        //    return cnt.db.Transport.Where(item => item.IdTransport == transportId).Select(item => item.NumberPlate).FirstOrDefault();
-        //}
-        //// Получение названия точки по ее id
-        //public static string GetNameOfPoint(int pointId)
-        //{
-        //    return cnt.db.Points.Where(item => item.IdPoint == pointId).Select(item => item.Name).FirstOrDefault();
-        //}
-        //// Получение локации точки по ее id
-        //public static string GetLocationOfPoint(int pointId)
-        //{
-        //    return cnt.db.Points.Where(item => item.IdPoint == pointId).Select(item => item.location).FirstOrDefault();
-        //}
-        // Проверка на валидность название и локацию остановки
-        public static bool IsValidNameAndLocationOfPoint(string name, string location)
+        // Проверка на уникальность электронной почты
+        public static bool IsPhoneNumberAlreadyTaken(string Phone)
         {
-            if (name != "" && location != "")
-                return true;
-            else
-                return false;
-        }
-        // Проверка на валидность информации о водителе
-        public static bool IsValidInfoAboutDriver(string idTransport, string name, string surname, string patronymic)
-        {
-            if (IsOnlyDigits(idTransport) && idTransport != "" && name != "" && surname != "" && patronymic != "")
-                return true;
-            else
-                return false;
-        }
-        public static bool IsOnlyDigits(string str)
-        {
-            foreach (char c in str)
-                if (!char.IsDigit(c))
-                    return false;
-            return true;
+            return cnt.db.User.Select(item => item.PhoneNumber).Contains(Phone);
         }
     }
 }

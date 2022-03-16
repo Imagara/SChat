@@ -121,7 +121,7 @@ namespace SChat
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
                 new ErrorWindow("Неверный формат.").ShowDialog();
             }

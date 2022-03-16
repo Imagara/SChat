@@ -188,9 +188,12 @@ namespace SChat
         }
         private void NewChatSelected(object sender, RoutedEventArgs e)
         {
-            if (Profile.openedChat != Convert.ToInt32(cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).Select(item => item.IdChat).FirstOrDefault()))
+            Chat chat = cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).FirstOrDefault();
+            if (!cnt.db.UserChat.Where(item => item.IdChat == chat.IdChat).Select(item => item.IdChat + " " + item.IdUser).Contains(chat.IdChat + " " + Profile.userId))
+                new ErrorWindow("Вы не состоите в этом чате").ShowDialog();
+            else if (Profile.openedChat != chat.IdChat)
             {
-                Profile.openedChat = Convert.ToInt32(cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).Select(item => item.IdChat).FirstOrDefault());
+                Profile.openedChat = chat.IdChat;
                 MainFrame.Content = new ChatPage();
             }
         }

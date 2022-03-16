@@ -19,6 +19,5 @@
                    FontSize="30"
                    Foreground="White"/>
         </StackPanel>
-        
     </Grid>
 </Page>

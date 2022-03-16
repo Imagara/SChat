@@ -76,8 +76,7 @@
                              Background="#2F3136"
                              BorderBrush="#2F3136"
                              ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                        <Grid Height="40" Visibility="Visible" 
-                              Width="135"
+                        <Grid Height="40" Visibility="Visible"
                               HorizontalAlignment="Center">
                             <Image
                               Margin="5,0,0,0"

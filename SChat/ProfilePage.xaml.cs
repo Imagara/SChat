@@ -9,7 +9,7 @@ namespace SChat
 {
     public partial class ProfilePage : Page
     {
-        User user = cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault();
+        private User user = cnt.db.User.Where(item => item.Id == Profile.userId).FirstOrDefault();
         public ProfilePage()
         {
             InitializeComponent();
@@ -37,8 +37,7 @@ namespace SChat
         }
         private void ChangeImageProfile_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            BitmapImage image = new BitmapImage();
-            image = ImagesManip.SelectImage();
+            BitmapImage image = ImagesManip.SelectImage();
             if (image != null)
             {
                 ProfileImage.Source = image;

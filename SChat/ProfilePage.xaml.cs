@@ -125,5 +125,10 @@ namespace SChat
                 new ErrorWindow("Неверный формат.").ShowDialog();
             }
         }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            //new LoginWindow().Show();
+        }
     }
 }

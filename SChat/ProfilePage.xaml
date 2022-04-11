@@ -133,6 +133,12 @@
                                 Click="PhoneButtonEdit_Click">
                         </Button>
                     </StackPanel>
+                    <Button Content="Выход"
+                            Height="30" 
+                            Width="100"
+                            FontSize="16"
+                            Click="Exit_Click">
+                    </Button>
                 </StackPanel>
             </Grid>
         </Grid>

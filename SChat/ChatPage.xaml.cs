@@ -35,10 +35,7 @@ namespace SChat
             }
 
             if (MessageListBox.Items.Count > 50 || (cnt.db.Message.Where(item => item.IdChat == Profile.openedChat).OrderByDescending(order => order.IdMessage).Select(item => item.IdMessage).FirstOrDefault() - 1 != Profile.lastMessageId))
-            {
                 LoadingMessages();
-                MessageBox.Show("Updated all" + Profile.lastMessageId);
-            }
             else if (newMessage != null)
             {
                 try
@@ -146,8 +143,7 @@ namespace SChat
             {
                 cnt.db.UserChat.Remove(cnt.db.UserChat.Where(item => item.IdUser == Profile.userId && item.IdChat == Profile.openedChat).FirstOrDefault());
                 cnt.db.SaveChanges();
-                WelcomePage wp = new WelcomePage();
-                NavigationService.Navigate(wp);
+                NavigationService.Navigate(new WelcomePage());
             }
             catch (Exception ex)
             {

@@ -189,12 +189,15 @@ namespace SChat
         private void NewChatSelected(object sender, RoutedEventArgs e)
         {
             Chat chat = cnt.db.Chat.Where(item => item.Name == ((Label)sender).Content.ToString()).FirstOrDefault();
-            if (!cnt.db.UserChat.Where(item => item.IdChat == chat.IdChat).Select(item => item.IdChat + " " + item.IdUser).Contains(chat.IdChat + " " + Profile.userId))
-                new ErrorWindow("Вы не состоите в этом чате").ShowDialog();
-            else if (Profile.openedChat != chat.IdChat)
+            if(chat != null)
             {
-                Profile.openedChat = chat.IdChat;
-                MainFrame.Content = new ChatPage();
+                if (!cnt.db.UserChat.Where(item => item.IdChat == chat.IdChat).Select(item => item.IdChat + " " + item.IdUser).Contains(chat.IdChat + " " + Profile.userId))
+                    new ErrorWindow("Вы не состоите в этом чате").ShowDialog();
+                else
+                {
+                    Profile.openedChat = chat.IdChat;
+                    MainFrame.Content = new ChatPage();
+                }
             }
         }
         private void Profile_MouseDown(object sender, MouseButtonEventArgs e)
@@ -214,10 +217,17 @@ namespace SChat
 
         private void WindowStateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
-                Application.Current.MainWindow.WindowState = WindowState.Maximized;
-            else
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            try
+            {
+                if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
+                    Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                else
+                    Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+            catch (Exception ex)
+            {
+                new ErrorWindow(ex.ToString()).ShowDialog();
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

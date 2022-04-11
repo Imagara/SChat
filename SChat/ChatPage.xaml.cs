@@ -17,9 +17,10 @@ namespace SChat
         }
         private void SendMessageButton(object sender, RoutedEventArgs e)
         {
+            Message newMessage = new Message();
             if (MsgBox.Text.Trim() != "")
             {
-                Message newMessage = new Message()
+                newMessage = new Message()
                 {
                     IdMessage = cnt.db.Message.Select(p => p.IdMessage).DefaultIfEmpty(0).Max() + 1,
                     IdUser = Profile.userId,
@@ -30,8 +31,37 @@ namespace SChat
                 cnt.db.Message.Add(newMessage);
                 cnt.db.SaveChanges();
                 MsgBox.Text = "";
+
             }
-            LoadingMessages();
+
+            if (MessageListBox.Items.Count > 50 || (cnt.db.Message.Where(item => item.IdChat == Profile.openedChat).OrderByDescending(order => order.IdMessage).Select(item => item.IdMessage).FirstOrDefault() - 1 != Profile.lastMessageId))
+            {
+                LoadingMessages();
+                MessageBox.Show("Updated all" + Profile.lastMessageId);
+            }
+            else if (newMessage != null)
+            {
+                try
+                {
+                    int idAuthor = newMessage.User.Id;
+                    string author = newMessage.User.NickName;
+                    string content = newMessage.Content;
+                    DateTime dt = newMessage.Date;
+                    BitmapImage imgSource;
+                    if (cnt.db.User.Where(item => item.Id == idAuthor).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
+                        imgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
+                    else
+                        imgSource = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault());
+
+                    SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
+                }
+                catch (Exception ex)
+                {
+                    new ErrorWindow(ex.ToString()).ShowDialog();
+                }
+            }
+
+            Profile.lastMessageId = cnt.db.Message.Where(item => item.IdChat == Profile.openedChat).OrderByDescending(order => order.IdMessage).Select(item => item.IdMessage).FirstOrDefault();
         }
         private void SendMessage(string nickName, string message, string date, BitmapImage imageSource)
         {

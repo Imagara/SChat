@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,6 +15,20 @@ namespace SChat
             InitializeComponent();
             ChatName.Content = cnt.db.Chat.Where(item => item.IdChat == Profile.openedChat).Select(item => item.Name).FirstOrDefault();
             LoadingMessages();
+            Thread th = new Thread(ThreadUpdate);
+            th.Start();
+        }
+        public void ThreadUpdate()
+        {
+            while(true)
+            {
+                Thread.Sleep(1000);
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    LoadingMessages();
+                }));
+            }
+            
         }
         private void SendMessageButton(object sender, RoutedEventArgs e)
         {
@@ -112,9 +127,8 @@ namespace SChat
             {
                 try
                 {
-                    Message message = cnt.db.Message.Where(item => item.IdMessage == msg.IdMessage).FirstOrDefault();
-                    int idAuthor = message.User.Id;
-                    string author = message.User.NickName;
+                    int idAuthor = msg.User.Id;
+                    string author = msg.User.NickName;
                     string content = msg.Content;
                     DateTime dt = msg.Date;
                     BitmapImage imgSource;

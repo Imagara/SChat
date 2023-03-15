@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -10,26 +11,27 @@ namespace SChat
 {
     public partial class ChatPage : Page
     {
+        public List<Message> MessagesList { get; set; } = cnt.db.Message.Where(item => item.IdChat == 0).ToList();
         public ChatPage()
         {
             InitializeComponent();
             ChatName.Content = cnt.db.Chat.Where(item => item.IdChat == Profile.openedChat).Select(item => item.Name).FirstOrDefault();
-            LoadingMessages();
-            Thread th = new Thread(ThreadUpdate);
-            th.Start();
+            //LoadingMessages();
+            //Thread th = new Thread(ThreadUpdate);
+            //th.Start();
         }
-        public void ThreadUpdate()
-        {
-            while(true)
-            {
-                Thread.Sleep(1000);
-                this.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    LoadingMessages();
-                }));
-            }
+        //public void ThreadUpdate()
+        //{
+        //    while(true)
+        //    {
+        //        Thread.Sleep(1000);
+        //        this.Dispatcher.BeginInvoke(new Action(() =>
+        //        {
+        //            LoadingMessages();
+        //        }));
+        //    }
             
-        }
+        //}
         private void SendMessageButton(object sender, RoutedEventArgs e)
         {
             Message newMessage = new Message();
@@ -49,103 +51,103 @@ namespace SChat
 
             }
 
-            if (MessageListBox.Items.Count > 50 || (cnt.db.Message.Where(item => item.IdChat == Profile.openedChat).OrderByDescending(order => order.IdMessage).Select(item => item.IdMessage).FirstOrDefault() - 1 != Profile.lastMessageId))
-                LoadingMessages();
-            else if (newMessage != null)
-            {
-                try
-                {
-                    int idAuthor = newMessage.User.Id;
-                    string author = newMessage.User.NickName;
-                    string content = newMessage.Content;
-                    DateTime dt = newMessage.Date;
-                    BitmapImage imgSource;
-                    if (cnt.db.User.Where(item => item.Id == idAuthor).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
-                        imgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
-                    else
-                        imgSource = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault());
+            //if (MessageListBox.Items.Count > 50 || (cnt.db.Message.Where(item => item.IdChat == Profile.openedChat).OrderByDescending(order => order.IdMessage).Select(item => item.IdMessage).FirstOrDefault() - 1 != Profile.lastMessageId))
+            //    LoadingMessages();
+            //else if (newMessage != null)
+            //{
+            //    try
+            //    {
+            //        int idAuthor = newMessage.User.Id;
+            //        string author = newMessage.User.NickName;
+            //        string content = newMessage.Content;
+            //        DateTime dt = newMessage.Date;
+            //        BitmapImage imgSource;
+            //        if (cnt.db.User.Where(item => item.Id == idAuthor).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
+            //            imgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
+            //        else
+            //            imgSource = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault());
 
-                    SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
-                }
-                catch (Exception ex)
-                {
-                    new ErrorWindow(ex.ToString()).ShowDialog();
-                }
-            }
+            //        SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        new ErrorWindow(ex.ToString()).ShowDialog();
+            //    }
+            //}
 
-            Profile.lastMessageId = cnt.db.Message.Where(item => item.IdChat == Profile.openedChat).OrderByDescending(order => order.IdMessage).Select(item => item.IdMessage).FirstOrDefault();
+            //Profile.lastMessageId = cnt.db.Message.Where(item => item.IdChat == Profile.openedChat).OrderByDescending(order => order.IdMessage).Select(item => item.IdMessage).FirstOrDefault();
         }
-        private void SendMessage(string nickName, string message, string date, BitmapImage imageSource)
-        {
-            Grid messageGrid = new Grid();
-            messageGrid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x40, 0x44, 0x4B));
-            messageGrid.Height = 45;
-            messageGrid.Width = 590;
-            messageGrid.Margin = new Thickness(10, 5, 10, 5);
+        //private void SendMessage(string nickName, string message, string date, BitmapImage imageSource)
+        //{
+        //    Grid messageGrid = new Grid();
+        //    messageGrid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x40, 0x44, 0x4B));
+        //    messageGrid.Height = 45;
+        //    messageGrid.Width = 590;
+        //    messageGrid.Margin = new Thickness(10, 5, 10, 5);
 
-            Image messageImage = new Image();
-            messageImage.Source = imageSource;
-            messageImage.Width = 35;
-            messageImage.Height = 35;
-            messageImage.Margin = new Thickness(5);
-            messageImage.HorizontalAlignment = HorizontalAlignment.Left;
-            messageGrid.Children.Add(messageImage);
+        //    Image messageImage = new Image();
+        //    messageImage.Source = imageSource;
+        //    messageImage.Width = 35;
+        //    messageImage.Height = 35;
+        //    messageImage.Margin = new Thickness(5);
+        //    messageImage.HorizontalAlignment = HorizontalAlignment.Left;
+        //    messageGrid.Children.Add(messageImage);
 
-            StackPanel stackpanel = new StackPanel();
-            stackpanel.Orientation = Orientation.Horizontal;
+        //    StackPanel stackpanel = new StackPanel();
+        //    stackpanel.Orientation = Orientation.Horizontal;
 
-            Label authorLabel = new Label();
-            authorLabel.Content = nickName;
-            authorLabel.Foreground = Brushes.White;
-            authorLabel.FontWeight = FontWeights.Bold;
-            authorLabel.HorizontalAlignment = HorizontalAlignment.Left;
-            authorLabel.VerticalAlignment = VerticalAlignment.Top;
-            authorLabel.Margin = new Thickness(40, 0, 0, 0);
+        //    Label authorLabel = new Label();
+        //    authorLabel.Content = nickName;
+        //    authorLabel.Foreground = Brushes.White;
+        //    authorLabel.FontWeight = FontWeights.Bold;
+        //    authorLabel.HorizontalAlignment = HorizontalAlignment.Left;
+        //    authorLabel.VerticalAlignment = VerticalAlignment.Top;
+        //    authorLabel.Margin = new Thickness(40, 0, 0, 0);
 
-            Label dateLabel = new Label();
-            dateLabel.Content = date;
-            dateLabel.Foreground = Brushes.White;
+        //    Label dateLabel = new Label();
+        //    dateLabel.Content = date;
+        //    dateLabel.Foreground = Brushes.White;
 
-            stackpanel.Children.Add(authorLabel);
-            stackpanel.Children.Add(dateLabel);
-            messageGrid.Children.Add(stackpanel);
+        //    stackpanel.Children.Add(authorLabel);
+        //    stackpanel.Children.Add(dateLabel);
+        //    messageGrid.Children.Add(stackpanel);
 
-            Label messageLabel = new Label();
-            messageLabel.Content = message;
-            messageLabel.Foreground = Brushes.White;
-            messageLabel.HorizontalAlignment = HorizontalAlignment.Left;
-            messageLabel.VerticalAlignment = VerticalAlignment.Bottom;
-            messageLabel.Margin = new Thickness(40, 0, 0, 0);
-            messageGrid.Children.Add(messageLabel);
+        //    Label messageLabel = new Label();
+        //    messageLabel.Content = message;
+        //    messageLabel.Foreground = Brushes.White;
+        //    messageLabel.HorizontalAlignment = HorizontalAlignment.Left;
+        //    messageLabel.VerticalAlignment = VerticalAlignment.Bottom;
+        //    messageLabel.Margin = new Thickness(40, 0, 0, 0);
+        //    messageGrid.Children.Add(messageLabel);
 
-            MessageListBox.Items.Add(messageGrid);
-        }
-        void LoadingMessages()
-        {
-            MessageListBox.Items.Clear();
-            foreach (Message msg in cnt.db.Message.Where(chat => chat.IdChat == Profile.openedChat).OrderByDescending(id => id.IdMessage).Take(25).OrderBy(id => id.IdMessage).ToList())
-            {
-                try
-                {
-                    int idAuthor = msg.User.Id;
-                    string author = msg.User.NickName;
-                    string content = msg.Content;
-                    DateTime dt = msg.Date;
-                    BitmapImage imgSource;
-                    if (cnt.db.User.Where(item => item.Id == idAuthor).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
-                        imgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
-                    else
-                        imgSource = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault());
+        //    MessageListBox.Items.Add(messageGrid);
+        //}
+        //void LoadingMessages()
+        //{
+        //    MessageListBox.Items.Clear();
+        //    foreach (Message msg in cnt.db.Message.Where(chat => chat.IdChat == Profile.openedChat).OrderByDescending(id => id.IdMessage).Take(25).OrderBy(id => id.IdMessage).ToList())
+        //    {
+        //        try
+        //        {
+        //            int idAuthor = msg.User.Id;
+        //            string author = msg.User.NickName;
+        //            string content = msg.Content;
+        //            DateTime dt = msg.Date;
+        //            BitmapImage imgSource;
+        //            if (cnt.db.User.Where(item => item.Id == idAuthor).Select(item => item.ProfileImgSource).FirstOrDefault() == null)
+        //                imgSource = new BitmapImage(new Uri("../Resources/StandartProfile.png", UriKind.RelativeOrAbsolute));
+        //            else
+        //                imgSource = ImagesManip.NewImage(cnt.db.User.Where(item => item.Id == idAuthor).FirstOrDefault());
 
-                    SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
-                }
-                catch (Exception ex)
-                {
-                    new ErrorWindow(ex.ToString()).ShowDialog();
-                }
-            }
-            scroll.ScrollToEnd();
-        }
+        //            SendMessage(author, content, dt.ToString("dd.MM.yyyy HH:mm"), imgSource);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            new ErrorWindow(ex.ToString()).ShowDialog();
+        //        }
+        //    }
+        //    //scroll.ScrollToEnd();
+        //}
 
         private void ChatSettings_Click(object sender, RoutedEventArgs e)
         {
